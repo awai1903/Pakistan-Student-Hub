@@ -4,6 +4,10 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--include=dev"
+
 # Single Page Application (SPA) rewrite rule to handle all routes via index.html
 [[redirects]]
   from = "/*"

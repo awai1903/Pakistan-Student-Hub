@@ -104,6 +104,9 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
         </p>
       </div>
 
+      {/* Adsterra Leaderboard Banner */}
+      <AdSlot placement="header" />
+
       {/* Filter and Search Bar */}
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
@@ -310,6 +313,9 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
           })}
         </div>
       )}
+
+      {/* Adsterra Native Banner (31478639) */}
+      <AdSlot placement="native" label="Featured University Campuses & Higher Ed Programs" />
 
       {/* Ad slot */}
       <AdSlot placement="footer" />

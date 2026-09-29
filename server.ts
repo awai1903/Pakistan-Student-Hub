@@ -33,6 +33,7 @@ interface SyncLog {
 let isAutonomousSyncEnabled = true;
 let lastSyncTimestamp = new Date().toISOString();
 let totalAutoDiscoveredCount = 14;
+let quotaExceededCooldownUntil = 0; // Cooldown timestamp for quota limit
 const syncLogs: SyncLog[] = [
   {
     id: 'log-1',
@@ -89,7 +90,7 @@ app.post('/api/ai/sync-official-portals', async (req: Request, res: Response) =>
     let discoveredOpportunities: any[] = [];
     let logMessage = '';
 
-    if (apiKey) {
+    if (apiKey && Date.now() > quotaExceededCooldownUntil) {
       try {
         const prompt = `You are the official data verification engine for Pakistan Student Hub.
 Search for official, verified university admissions, scholarships, and entry tests currently open or closing soon in Pakistan (Region: ${region}).
@@ -146,7 +147,13 @@ Extract only FACTUAL, verifiable items. For each item provide:
         });
         return;
       } catch (geminiError: any) {
-        console.warn('Gemini live search notice, utilizing structured synchronization:', geminiError.message);
+        const errMsg = geminiError.message || String(geminiError);
+        if (errMsg.includes('resource_exhausted') || errMsg.includes('quota') || errMsg.includes('429')) {
+          console.warn('Gemini quota reached. Entering graceful cooldown mode (using verified local repository).');
+          quotaExceededCooldownUntil = Date.now() + 15 * 60 * 1000; // 15-minute cooldown
+        } else {
+          console.warn('Gemini live search notice, utilizing structured synchronization:', errMsg);
+        }
       }
     }
 

@@ -1,57 +1,64 @@
 import React from 'react';
-import { dataStore } from '../../lib/dataStore';
+import { AdsterraBanner } from './AdsterraBanner';
+import { AdsterraResponsiveBanner } from './AdsterraResponsiveBanner';
+import { AdsterraNativeBanner } from './AdsterraNativeBanner';
+import { AdsterraSmartlink } from './AdsterraSmartlink';
+
+export type AdSlotPlacement = 
+  | 'header' 
+  | 'sidebar' 
+  | 'in_feed' 
+  | 'footer'
+  | 'rectangle_300x250'
+  | 'skyscraper_160x600'
+  | 'skyscraper_160x300'
+  | 'banner_728x90'
+  | 'banner_468x60'
+  | 'banner_320x50'
+  | 'native'
+  | 'smartlink_card';
 
 interface AdSlotProps {
-  placement: 'header' | 'sidebar' | 'in_feed' | 'footer';
+  placement: AdSlotPlacement;
   className?: string;
+  label?: string;
 }
 
-export const AdSlot: React.FC<AdSlotProps> = ({ placement, className = '' }) => {
-  const adSettings = dataStore.getAdSettings();
+export const AdSlot: React.FC<AdSlotProps> = ({ 
+  placement, 
+  className = '',
+  label
+}) => {
+  switch (placement) {
+    case 'header':
+    case 'footer':
+    case 'banner_728x90':
+      return <AdsterraResponsiveBanner className={className} label={label} />;
 
-  if (!adSettings.enabled) return null;
+    case 'sidebar':
+    case 'rectangle_300x250':
+      return <AdsterraBanner format="300x250" className={className} label={label} />;
 
-  // Check specific placement enabled state
-  if (placement === 'header' && !adSettings.header_banner) return null;
-  if (placement === 'sidebar' && !adSettings.sidebar_ad) return null;
-  if (placement === 'in_feed' && !adSettings.in_feed_ad) return null;
-  if (placement === 'footer' && !adSettings.footer_banner) return null;
+    case 'skyscraper_160x600':
+      return <AdsterraBanner format="160x600" className={className} label={label} />;
 
-  const visibilityClasses = `${
-    adSettings.show_on_mobile ? 'block' : 'hidden'
-  } ${adSettings.show_on_desktop ? 'md:block' : 'md:hidden'}`;
+    case 'skyscraper_160x300':
+      return <AdsterraBanner format="160x300" className={className} label={label} />;
 
-  return (
-    <div
-      className={`my-6 rounded-lg border border-dashed border-slate-300 bg-slate-50/80 p-3 text-center ${visibilityClasses} ${className}`}
-      aria-label="Advertisement container"
-    >
-      <div className="flex items-center justify-between pb-1.5 px-2 text-[11px] font-medium text-slate-400">
-        <span className="uppercase tracking-wider">Sponsored Partner Advertisement</span>
-        <span>Adsterra Verified Network</span>
-      </div>
+    case 'banner_468x60':
+      return <AdsterraBanner format="468x60" className={className} label={label} />;
 
-      <div className="flex min-h-[90px] items-center justify-center rounded border border-slate-200 bg-white p-4 text-xs text-slate-500 shadow-xs">
-        {placement === 'sidebar' ? (
-          <div className="flex flex-col items-center justify-center space-y-1">
-            <span className="font-semibold text-slate-700">Student Study Grants & EdTech Gear</span>
-            <span className="text-[11px] text-slate-400">Partner promotion for verified college students in Pakistan</span>
-            <span className="mt-2 inline-block rounded bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-800">
-              Official Partner Ad
-            </span>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center space-y-1 sm:flex-row sm:space-x-6 sm:space-y-0">
-            <div className="text-left">
-              <p className="font-semibold text-slate-800">Laptops & Student Broadband Connectivity Bundles</p>
-              <p className="text-[11px] text-slate-500">Government & university subsidized student schemes across Pakistan</p>
-            </div>
-            <span className="shrink-0 rounded bg-slate-900 px-3 py-1.5 text-[11px] font-medium text-white transition-colors hover:bg-slate-800">
-              Learn More
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
-  );
+    case 'banner_320x50':
+      return <AdsterraBanner format="320x50" className={className} label={label} />;
+
+    case 'in_feed':
+    case 'native':
+      return <AdsterraNativeBanner className={className} label={label} />;
+
+    case 'smartlink_card':
+      return <AdsterraSmartlink variant="card" className={className} />;
+
+    default:
+      return <AdsterraResponsiveBanner className={className} label={label} />;
+  }
 };

@@ -139,6 +139,9 @@ export const DeadlinesView: React.FC<DeadlinesViewProps> = () => {
         </p>
       </div>
 
+      {/* Adsterra Leaderboard Banner */}
+      <AdSlot placement="header" />
+
       {/* Filter Tabs */}
       <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-3 text-xs">
         <span className="text-slate-500 font-medium">Filter Category:</span>
@@ -216,6 +219,11 @@ export const DeadlinesView: React.FC<DeadlinesViewProps> = () => {
           <p className="mt-1 text-xs text-slate-500">All opportunities in this category are either completed or upcoming session announcements are pending.</p>
         </div>
       )}
+
+      {/* Adsterra 468x60 Banner (31478642) */}
+      <div className="flex justify-center">
+        <AdSlot placement="banner_468x60" label="Sponsored Educational Alerts" />
+      </div>
 
       <AdSlot placement="footer" />
     </div>

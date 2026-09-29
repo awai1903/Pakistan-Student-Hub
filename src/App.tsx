@@ -21,6 +21,8 @@ import { CoursesView } from './views/CoursesView';
 import { ResourcesView } from './views/ResourcesView';
 import { NewsView } from './views/NewsView';
 import { StudentDashboardView } from './views/StudentDashboardView';
+import { AdsterraSmartlink } from './components/ads/AdsterraSmartlink';
+import { AdsterraResponsiveBanner } from './components/ads/AdsterraResponsiveBanner';
 import { dataStore } from './lib/dataStore';
 import { updatePageSeo } from './lib/seo';
 
@@ -137,6 +139,9 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
       
+      {/* Adsterra Smartlink 31478641 Top Notification Bar */}
+      <AdsterraSmartlink variant="top-banner" />
+
       {/* 3-Zone Compliant Top Navigation Bar */}
       <Header
         activeTab={activeTab}
@@ -244,6 +249,11 @@ export default function App() {
         onClose={() => setSearchModalOpen(false)}
         onSelectEntity={handleSelectFromSearch}
       />
+
+      {/* Adsterra Responsive Leaderboard Banner (728x90 / 468x60 / 320x50) */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 w-full">
+        <AdsterraResponsiveBanner label="Sponsored Educational Offers" />
+      </div>
 
       {/* Trust & Integrity Footer */}
       <Footer onNavigateTab={(tab, slug) => handleNavigate(tab, slug)} />

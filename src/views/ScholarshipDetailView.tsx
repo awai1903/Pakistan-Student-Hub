@@ -240,6 +240,14 @@ export const ScholarshipDetailView: React.FC<ScholarshipDetailViewProps> = ({ sl
 
           <AdSlot placement="sidebar" />
 
+          {/* Adsterra Smartlink (31478641) */}
+          <AdSlot placement="smartlink_card" />
+
+          {/* Adsterra 160x600 Skyscraper (31478644) */}
+          <div className="flex justify-center">
+            <AdSlot placement="skyscraper_160x600" label="Sponsored Education Partner" />
+          </div>
+
         </div>
 
       </div>

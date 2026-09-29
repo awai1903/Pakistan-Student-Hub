@@ -426,6 +426,14 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal 
         </div>
       </section>
 
+      {/* ADSTERRA MONETIZATION ROW: 300x250 Medium Rectangle (31478643) + Smartlink Card (31478641) */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <AdSlot placement="rectangle_300x250" label="Sponsored Higher Education Offers" />
+          <AdSlot placement="smartlink_card" />
+        </div>
+      </section>
+
       {/* 6. POPULAR UNIVERSITIES DIRECTORY PREVIEW (Section 5) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-4">

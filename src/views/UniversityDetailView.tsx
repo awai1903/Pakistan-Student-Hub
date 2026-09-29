@@ -349,6 +349,14 @@ export const UniversityDetailView: React.FC<UniversityDetailViewProps> = ({
             </button>
           </div>
 
+          {/* Adsterra 160x300 Half Skyscraper (31478645) */}
+          <div className="flex justify-center">
+            <AdSlot placement="skyscraper_160x300" label="Sponsored Educational Gear" />
+          </div>
+
+          {/* Adsterra Smartlink (31478641) */}
+          <AdSlot placement="smartlink_card" />
+
         </div>
 
       </div>

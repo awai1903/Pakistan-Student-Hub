@@ -69,6 +69,9 @@ export const ScholarshipsView: React.FC<ScholarshipsViewProps> = ({
         </p>
       </div>
 
+      {/* Adsterra Leaderboard Banner */}
+      <AdSlot placement="header" />
+
       {/* Filter and Search Bar */}
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
@@ -251,6 +254,12 @@ export const ScholarshipsView: React.FC<ScholarshipsViewProps> = ({
             </div>
           );
         })}
+      </div>
+
+      {/* Adsterra Smartlink (31478641) + Native Banner (31478639) */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+        <AdSlot placement="smartlink_card" />
+        <AdSlot placement="native" label="Recommended Grants & Study Abroad Offers" />
       </div>
 
       <AdSlot placement="footer" />

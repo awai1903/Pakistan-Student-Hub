@@ -72,6 +72,9 @@ export const AdmissionsView: React.FC<AdmissionsViewProps> = ({
         </p>
       </div>
 
+      {/* Adsterra Responsive Leaderboard Banner (728x90 / 468x60 / 320x50) */}
+      <AdSlot placement="header" />
+
       {/* Filter and Search Bar */}
       <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
@@ -282,6 +285,9 @@ export const AdmissionsView: React.FC<AdmissionsViewProps> = ({
           })
         )}
       </div>
+
+      {/* Adsterra Native Banner (31478639) */}
+      <AdSlot placement="native" label="Sponsored Admissions & College Programs" />
 
       <AdSlot placement="footer" />
     </div>

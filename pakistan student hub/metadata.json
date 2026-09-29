@@ -1,0 +1,6 @@
+{
+  "name": "Pakistan Student Hub",
+  "description": "Comprehensive student portal for Pakistan: discover verified admissions, scholarships, university directories, entry tests, past papers, internships, and educational deadlines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

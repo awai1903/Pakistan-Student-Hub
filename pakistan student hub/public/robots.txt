@@ -1,0 +1,7 @@
+# Robots.txt for Pakistan Student Hub
+# Production Domain: https://pakistanstudenthub.netlify.app/
+User-agent: *
+Allow: /
+
+# Canonical Sitemap
+Sitemap: https://pakistanstudenthub.netlify.app/sitemap.xml

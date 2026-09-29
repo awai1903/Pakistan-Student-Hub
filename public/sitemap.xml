@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Homepage -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <!-- Universities Directory -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=universities</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Admissions Portal -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=admissions</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Scholarships -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=scholarships</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Entry Tests (MDCAT, ECAT, NET, NAT) -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=entry-tests</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Closing Deadlines Calendar -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=deadlines</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Student Jobs & Graduate Opportunities -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=jobs</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Paid Internships -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=internships</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Higher Education Degree Programs & Courses -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=courses</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- Past Papers & Student Resources -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=resources</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <!-- University Comparison Tool -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=compare</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <!-- Educational News & Updates -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=news</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

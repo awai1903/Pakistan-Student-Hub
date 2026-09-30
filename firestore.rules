@@ -79,6 +79,21 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Public Community Reviews, Feature Requests & Student Feedback
+    match /feedback/{feedbackId} {
+      allow read: if isValidId(feedbackId);
+      allow create: if isValidId(feedbackId) &&
+        incoming().title is string && incoming().title.size() <= 200 &&
+        incoming().content is string && incoming().content.size() <= 2000 &&
+        incoming().author_name is string && incoming().author_name.size() <= 100 &&
+        incoming().status in ['Under Review', 'Published'];
+      allow update: if isAdmin() || (
+        incoming().diff(existing()).affectedKeys().hasOnly(['upvotes']) &&
+        incoming().upvotes == existing().upvotes + 1
+      );
+      allow delete: if isAdmin();
+    }
+
     // User Private Profile & Subcollections: Strictly Owner-isolated
     match /users/{userId} {
       allow read, write: if isOwner(userId) && isValidId(userId);

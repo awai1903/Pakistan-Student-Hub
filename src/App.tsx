@@ -21,6 +21,8 @@ import { CoursesView } from './views/CoursesView';
 import { ResourcesView } from './views/ResourcesView';
 import { NewsView } from './views/NewsView';
 import { StudentDashboardView } from './views/StudentDashboardView';
+import { ReviewsView } from './views/ReviewsView';
+import { FeedbackFloatingButton } from './components/feedback/FeedbackFloatingButton';
 import { AdsterraSmartlink } from './components/ads/AdsterraSmartlink';
 import { AdsterraResponsiveBanner } from './components/ads/AdsterraResponsiveBanner';
 import { dataStore } from './lib/dataStore';
@@ -101,6 +103,11 @@ export default function App() {
       updatePageSeo({
         title: 'Compare Pakistani Universities Side-by-Side',
         description: 'Objective factual comparison of fee structures, entry requirements, programs, and hostel facilities.'
+      });
+    } else if (activeTab === 'reviews') {
+      updatePageSeo({
+        title: 'Student Reviews & Feature Requests - Pakistan Student Hub',
+        description: 'Submit your reviews, suggest missing universities and scholarships, and vote on upcoming platform features.'
       });
     }
   }, [activeTab]);
@@ -229,6 +236,9 @@ export default function App() {
         {activeTab === 'dashboard' && (
           <StudentDashboardView onNavigateTab={(tab, slug) => handleNavigate(tab, slug)} />
         )}
+        {activeTab === 'reviews' && (
+          <ReviewsView />
+        )}
       </main>
 
       {/* Global Search Modal with Live Results */}
@@ -237,6 +247,9 @@ export default function App() {
         onClose={() => setSearchModalOpen(false)}
         onSelectEntity={handleSelectFromSearch}
       />
+
+      {/* Floating Feedback & Feature Request Button */}
+      <FeedbackFloatingButton />
 
       {/* Adsterra Responsive Leaderboard Banner */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 w-full">

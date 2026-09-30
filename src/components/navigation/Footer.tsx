@@ -113,6 +113,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigateTab('reviews')} className="text-emerald-800 font-semibold hover:text-emerald-950 transition-colors flex items-center gap-1.5">
+                  <span>Reviews & Feature Requests</span>
+                  <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[9px] text-emerald-800 font-bold">New</span>
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigateTab('dashboard')} className="hover:text-emerald-800 transition-colors">
                   Student Saved Items
                 </button>

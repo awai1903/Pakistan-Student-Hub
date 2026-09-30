@@ -95,6 +95,27 @@
         "notes": { "type": "string", "maxLength": 500 }
       },
       "required": ["id", "user_id", "title", "deadline_date", "category"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "Student reviews, feedback, and future feature requests",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "author_name": { "type": "string", "maxLength": 100 },
+        "author_email": { "type": "string", "maxLength": 150 },
+        "user_id": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "enum": ["feature_request", "university_suggestion", "scholarship_request", "general_review", "bug_report"] },
+        "title": { "type": "string", "maxLength": 200 },
+        "content": { "type": "string", "maxLength": 2000 },
+        "rating": { "type": "number" },
+        "target_entity": { "type": "string", "maxLength": 200 },
+        "upvotes": { "type": "number" },
+        "status": { "type": "string", "enum": ["Under Review", "Planned", "In Progress", "Completed", "Published"] },
+        "admin_response": { "type": "string", "maxLength": 1000 },
+        "created_at": { "type": "string" }
+      },
+      "required": ["id", "author_name", "type", "title", "content", "status", "created_at"]
     }
   },
   "firestore": {
@@ -113,6 +134,10 @@
     "/entry_tests/{testId}": {
       "schema": "EntryTest",
       "description": "Standardized entry tests info"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "Student reviews, ideas, and feature requests"
     },
     "/users/{userId}/saved_items/{itemId}": {
       "schema": "UserSavedItem",

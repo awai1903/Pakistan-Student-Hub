@@ -53,7 +53,8 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'jobs', label: 'Jobs' },
     { id: 'internships', label: 'Internships' },
     { id: 'courses', label: 'Courses' },
-    { id: 'news', label: 'News' }
+    { id: 'news', label: 'News' },
+    { id: 'reviews', label: 'Reviews & Ideas' }
   ];
 
   const allNavItems = [...primaryNavItems, ...secondaryNavItems];

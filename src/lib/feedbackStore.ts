@@ -10,6 +10,7 @@ import {
   orderBy, 
   limit 
 } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
 import { db, auth, handleFirestoreError, OperationType } from './firebase';
 
 export type FeedbackType = 
@@ -114,6 +115,7 @@ class FeedbackStore {
   private listeners: (() => void)[] = [];
   private upvotedSet: Set<string> = new Set();
   private isInitialized = false;
+  private unsubscribeFirestore: (() => void) | null = null;
 
   constructor() {
     this.loadFromStorage();
@@ -164,51 +166,63 @@ class FeedbackStore {
     if (this.isInitialized) return;
     this.isInitialized = true;
 
-    try {
-      const feedbackCol = collection(db, 'feedback');
-      const q = query(feedbackCol, orderBy('created_at', 'desc'), limit(100));
+    // React Firebase Setup: Only attach onSnapshot listeners if auth is ready and user is authenticated
+    onAuthStateChanged(auth, (user) => {
+      if (this.unsubscribeFirestore) {
+        this.unsubscribeFirestore();
+        this.unsubscribeFirestore = null;
+      }
 
-      onSnapshot(q, (snapshot) => {
-        if (!snapshot.empty) {
-          const remoteItems: FeedbackItem[] = [];
-          snapshot.forEach((docSnap) => {
-            const data = docSnap.data();
-            remoteItems.push({
-              id: docSnap.id,
-              author_name: data.author_name || 'Student',
-              author_email: data.author_email || '',
-              user_id: data.user_id || '',
-              type: data.type || 'general_review',
-              title: data.title || '',
-              content: data.content || '',
-              rating: typeof data.rating === 'number' ? data.rating : undefined,
-              target_entity: data.target_entity || '',
-              upvotes: typeof data.upvotes === 'number' ? data.upvotes : 0,
-              status: data.status || 'Under Review',
-              admin_response: data.admin_response || '',
-              admin_response_date: data.admin_response_date || '',
-              created_at: data.created_at || new Date().toISOString()
-            });
-          });
+      if (!user) {
+        // Unauthenticated sessions rely on local storage cache and verified seed data
+        return;
+      }
 
-          // Merge remote items with default seeds if count is low
-          const existingIds = new Set(remoteItems.map(r => r.id));
-          const remainingSeeds = DEFAULT_FEEDBACK.filter(seed => !existingIds.has(seed.id));
-          this.items = [...remoteItems, ...remainingSeeds];
-          this.saveToStorage();
-          this.notify();
-        }
-      }, (error) => {
-        // Handle error per firebase skill specification
-        try {
-          handleFirestoreError(error, OperationType.GET, 'feedback');
-        } catch {
-          // Keep offline cached items
-        }
-      });
-    } catch (e) {
-      console.warn('[FeedbackStore] Firestore listener fallback to local cache:', e);
-    }
+      try {
+        const feedbackCol = collection(db, 'feedback');
+        const q = query(feedbackCol, orderBy('created_at', 'desc'), limit(100));
+
+        this.unsubscribeFirestore = onSnapshot(
+          q,
+          (snapshot) => {
+            if (!snapshot.empty) {
+              const remoteItems: FeedbackItem[] = [];
+              snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                remoteItems.push({
+                  id: docSnap.id,
+                  author_name: data.author_name || 'Student',
+                  author_email: data.author_email || '',
+                  user_id: data.user_id || '',
+                  type: data.type || 'general_review',
+                  title: data.title || '',
+                  content: data.content || '',
+                  rating: typeof data.rating === 'number' ? data.rating : undefined,
+                  target_entity: data.target_entity || '',
+                  upvotes: typeof data.upvotes === 'number' ? data.upvotes : 0,
+                  status: data.status || 'Under Review',
+                  admin_response: data.admin_response || '',
+                  admin_response_date: data.admin_response_date || '',
+                  created_at: data.created_at || new Date().toISOString()
+                });
+              });
+
+              // Merge remote items with default seeds if count is low
+              const existingIds = new Set(remoteItems.map((r) => r.id));
+              const remainingSeeds = DEFAULT_FEEDBACK.filter((seed) => !existingIds.has(seed.id));
+              this.items = [...remoteItems, ...remainingSeeds];
+              this.saveToStorage();
+              this.notify();
+            }
+          },
+          (error) => {
+            handleFirestoreError(error, OperationType.GET, 'feedback');
+          }
+        );
+      } catch (e) {
+        console.warn('[FeedbackStore] Firestore listener fallback to local cache:', e);
+      }
+    });
   }
 
   public getItems(): FeedbackItem[] {
@@ -251,25 +265,27 @@ class FeedbackStore {
     this.saveUpvoted();
     this.notify();
 
-    // Persist to Firestore
-    try {
-      const docRef = doc(db, 'feedback', cleanId);
-      await setDoc(docRef, {
-        author_name: newItem.author_name,
-        author_email: newItem.author_email,
-        user_id: newItem.user_id,
-        type: newItem.type,
-        title: newItem.title,
-        content: newItem.content,
-        rating: newItem.rating || 5,
-        target_entity: newItem.target_entity,
-        upvotes: 1,
-        status: 'Under Review',
-        created_at: newItem.created_at,
-        server_timestamp: serverTimestamp()
-      });
-    } catch (error) {
-      handleFirestoreError(error, OperationType.WRITE, `feedback/${cleanId}`);
+    // Persist to Firestore if user is authenticated
+    if (auth.currentUser) {
+      try {
+        const docRef = doc(db, 'feedback', cleanId);
+        await setDoc(docRef, {
+          author_name: newItem.author_name,
+          author_email: newItem.author_email,
+          user_id: newItem.user_id,
+          type: newItem.type,
+          title: newItem.title,
+          content: newItem.content,
+          rating: newItem.rating || 5,
+          target_entity: newItem.target_entity,
+          upvotes: 1,
+          status: 'Under Review',
+          created_at: newItem.created_at,
+          server_timestamp: serverTimestamp()
+        });
+      } catch (error) {
+        handleFirestoreError(error, OperationType.WRITE, `feedback/${cleanId}`);
+      }
     }
 
     return newItem;
@@ -290,14 +306,16 @@ class FeedbackStore {
     this.saveUpvoted();
     this.notify();
 
-    // Persist to Firestore
-    try {
-      const docRef = doc(db, 'feedback', id);
-      await updateDoc(docRef, {
-        upvotes: item.upvotes
-      });
-    } catch {
-      // Local vote retained even if Firestore write is restricted
+    // Persist to Firestore if authenticated
+    if (auth.currentUser) {
+      try {
+        const docRef = doc(db, 'feedback', id);
+        await updateDoc(docRef, {
+          upvotes: item.upvotes
+        });
+      } catch {
+        // Local vote retained even if Firestore write is restricted
+      }
     }
   }
 
@@ -317,15 +335,17 @@ class FeedbackStore {
     this.saveToStorage();
     this.notify();
 
-    try {
-      const docRef = doc(db, 'feedback', id);
-      await updateDoc(docRef, {
-        status: newStatus,
-        admin_response: item.admin_response || '',
-        admin_response_date: item.admin_response_date || ''
-      });
-    } catch (error) {
-      handleFirestoreError(error, OperationType.UPDATE, `feedback/${id}`);
+    if (auth.currentUser) {
+      try {
+        const docRef = doc(db, 'feedback', id);
+        await updateDoc(docRef, {
+          status: newStatus,
+          admin_response: item.admin_response || '',
+          admin_response_date: item.admin_response_date || ''
+        });
+      } catch (error) {
+        handleFirestoreError(error, OperationType.UPDATE, `feedback/${id}`);
+      }
     }
   }
 
@@ -334,11 +354,13 @@ class FeedbackStore {
     this.saveToStorage();
     this.notify();
 
-    try {
-      const docRef = doc(db, 'feedback', id);
-      await deleteDoc(docRef);
-    } catch (error) {
-      handleFirestoreError(error, OperationType.DELETE, `feedback/${id}`);
+    if (auth.currentUser) {
+      try {
+        const docRef = doc(db, 'feedback', id);
+        await deleteDoc(docRef);
+      } catch (error) {
+        handleFirestoreError(error, OperationType.DELETE, `feedback/${id}`);
+      }
     }
   }
 

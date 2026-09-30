@@ -195,38 +195,50 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
 
-            {/* Firebase Google Auth Button */}
+            {/* Firebase Google Auth / Circle DP Button */}
             {firebaseUser ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center">
                 <button
                   onClick={() => handleNavClick('dashboard')}
-                  className="flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 py-1 pl-1 pr-2.5 text-xs text-emerald-900 hover:bg-emerald-100 transition-colors"
-                  title="Open Student Profile"
+                  className="relative flex items-center justify-center h-8 w-8 sm:h-8 sm:w-auto sm:px-2.5 sm:py-1 rounded-full border border-emerald-300 bg-emerald-50 hover:bg-emerald-100 transition-all shadow-2xs group"
+                  title={`Account: ${firebaseUser.displayName || firebaseUser.email || 'Student Profile'}`}
+                  aria-label="Open Student Account"
                 >
                   {firebaseUser.photoURL ? (
                     <img
                       src={firebaseUser.photoURL}
                       alt={firebaseUser.displayName || 'Profile'}
-                      className="h-6 w-6 rounded-full object-cover"
+                      className="h-7 w-7 sm:h-6 sm:w-6 rounded-full object-cover ring-1 ring-emerald-500/40"
                     />
                   ) : (
-                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-700 text-[10px] font-bold text-white">
+                    <span className="flex h-7 w-7 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-linear-to-tr from-emerald-800 to-teal-600 text-xs font-bold text-white shadow-xs">
                       {(firebaseUser.displayName || firebaseUser.email || 'U')[0].toUpperCase()}
                     </span>
                   )}
-                  <span className="hidden sm:inline font-semibold max-w-[80px] truncate">
+                  <span className="hidden sm:inline-block font-semibold text-xs text-emerald-950 max-w-[85px] truncate ml-1.5">
                     {firebaseUser.displayName?.split(' ')[0] || 'Profile'}
                   </span>
+                  {/* Active online green dot for circle DP */}
+                  <span className="absolute -bottom-0.5 -right-0.5 sm:hidden h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white" />
                 </button>
               </div>
             ) : (
               <button
                 onClick={() => loginWithGoogle()}
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors shadow-2xs"
-                title="Sign in with Google"
+                className="flex items-center justify-center h-8 w-8 sm:h-auto sm:w-auto sm:px-2.5 sm:py-1.5 rounded-full sm:rounded-lg border border-slate-300 bg-white hover:bg-emerald-50 hover:border-emerald-500 text-slate-700 hover:text-emerald-800 transition-all shadow-2xs group"
+                title="Sign in with Google / Student Account"
+                aria-label="Sign in with Google / Student Account"
               >
-                <LogIn className="h-3.5 w-3.5 text-emerald-700" />
-                <span>Sign in</span>
+                {/* Mobile: Email-style Circle DP avatar */}
+                <span className="flex sm:hidden h-7 w-7 items-center justify-center rounded-full bg-slate-100 group-hover:bg-emerald-100 text-slate-600 group-hover:text-emerald-800 border border-slate-200 transition-colors">
+                  <UserIcon className="h-4 w-4" />
+                </span>
+
+                {/* Desktop: Sign in label */}
+                <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold">
+                  <LogIn className="h-3.5 w-3.5 text-emerald-700" />
+                  <span>Sign in</span>
+                </span>
               </button>
             )}
 
@@ -244,6 +256,73 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Mobile Slide-down Navigation */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top-2">
+            {/* Account Bar inside Mobile Drawer */}
+            {firebaseUser ? (
+              <div className="mb-3 p-3 rounded-xl border border-emerald-200 bg-emerald-50/70 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 overflow-hidden">
+                  {firebaseUser.photoURL ? (
+                    <img
+                      src={firebaseUser.photoURL}
+                      alt={firebaseUser.displayName || 'Profile'}
+                      className="h-9 w-9 rounded-full object-cover ring-2 ring-emerald-600/40"
+                    />
+                  ) : (
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-tr from-emerald-800 to-teal-600 text-sm font-bold text-white shadow-xs">
+                      {(firebaseUser.displayName || firebaseUser.email || 'U')[0].toUpperCase()}
+                    </span>
+                  )}
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-slate-900 truncate">
+                      {firebaseUser.displayName || 'Student Account'}
+                    </p>
+                    <p className="text-[11px] text-slate-500 truncate">
+                      {firebaseUser.email}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleNavClick('dashboard');
+                    }}
+                    className="rounded-lg bg-emerald-800 px-2.5 py-1 text-[11px] font-semibold text-white hover:bg-emerald-900 transition-colors"
+                  >
+                    Saved
+                  </button>
+                  <button
+                    onClick={() => logoutUser()}
+                    className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-100 transition-colors"
+                    title="Sign out"
+                  >
+                    Exit
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="mb-3 p-3 rounded-xl border border-slate-200 bg-slate-50 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white border border-slate-300 text-slate-600 shadow-2xs">
+                    <UserIcon className="h-4 w-4" />
+                  </span>
+                  <div>
+                    <p className="text-xs font-bold text-slate-900">Student Account</p>
+                    <p className="text-[11px] text-slate-500">Sync & save opportunities</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    loginWithGoogle();
+                  }}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-800 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-900 transition-colors shadow-2xs"
+                >
+                  <LogIn className="h-3.5 w-3.5" />
+                  <span>Sign in</span>
+                </button>
+              </div>
+            )}
+
             <div className="mb-4">
               <button
                 onClick={() => {

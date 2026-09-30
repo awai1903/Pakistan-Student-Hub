@@ -8,15 +8,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 function aiApiPlugin(): Plugin {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY || '',
-    httpOptions: {
-      headers: {
-        'User-Agent': 'aistudio-build'
-      }
-    }
-  });
-
   const AI_CASCADE_MODELS = [
     { name: 'Gemini 3.8 Flash (Primary AI)', modelId: 'gemini-3.8-flash' },
     { name: 'Gemini 2.5 Flash (Secondary Failover)', modelId: 'gemini-2.5-flash' },
@@ -133,6 +124,15 @@ function aiApiPlugin(): Plugin {
               let didFailover = false;
 
               if (apiKey) {
+                const ai = new GoogleGenAI({
+                  apiKey,
+                  httpOptions: {
+                    headers: {
+                      'User-Agent': 'aistudio-build'
+                    }
+                  }
+                });
+
                 const prompt = `Search for official, verified Pakistani university admissions, scholarships, and entry test deadlines currently active or newly opened in Pakistan (Region: ${region}). Target: ${targetQuery}. Focus on HEC, NUST, QAU, LUMS, FAST-NUCES, PMDC, British Council Scottish Scholarships, PEEF, and provincial education departments. Provide concise 2-sentence verified factual summary with closing dates.`;
 
                 for (let i = 0; i < AI_CASCADE_MODELS.length; i++) {
@@ -221,7 +221,7 @@ export default defineConfig(() => {
     plugins: [react(), tailwindcss(), aiApiPlugin()],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve('.'),
       },
     },
     server: {

@@ -5,7 +5,7 @@
 
 [build.environment]
   NODE_VERSION = "20"
-  NPM_FLAGS = "--include=dev"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 # Single Page Application (SPA) rewrite rule to handle all routes via index.html
 [[redirects]]

@@ -40,29 +40,49 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
             </div>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => onNavigateTab('universities')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/universities"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('universities'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Universities Directory
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('admissions')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/admissions"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('admissions'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Admissions Calendar
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('scholarships')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/scholarships"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('scholarships'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Scholarships & Aid
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('entry-tests')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/entry-tests"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('entry-tests'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Entry Tests (MDCAT/ECAT)
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('compare')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/compare"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('compare'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Compare Universities
-                </button>
+                </a>
               </li>
             </ul>
           </div>
@@ -74,70 +94,137 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
             </div>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => onNavigateTab('internships')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/internships"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('internships'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Student Internships
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('jobs')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/jobs"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('jobs'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Graduate Trainee Jobs
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('courses')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/courses"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('courses'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Free Online Courses
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('resources')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/resources"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('resources'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Past Papers & Syllabi
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('news')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/news"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('news'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Education News & Gazette
-                </button>
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 5: Governance & Admin */}
+          {/* Col 5: Governance & Legal */}
           <div className="space-y-3">
             <div className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">
               Platform & Integrity
             </div>
             <ul className="space-y-2">
               <li>
-                <button onClick={() => onNavigateTab('deadlines')} className="hover:text-emerald-800 transition-colors">
+                <a
+                  href="/deadlines"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('deadlines'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
                   Closing Deadlines Center
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('reviews')} className="text-emerald-800 font-semibold hover:text-emerald-950 transition-colors flex items-center gap-1.5">
-                  <span>Reviews & Feature Requests</span>
+                <a
+                  href="/reviews"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('reviews'); }}
+                  className="text-emerald-800 font-semibold hover:text-emerald-950 transition-colors flex items-center gap-1.5"
+                >
+                  <span>Reviews & Ideas</span>
                   <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[9px] text-emerald-800 font-bold">New</span>
-                </button>
+                </a>
               </li>
               <li>
-                <button onClick={() => onNavigateTab('dashboard')} className="hover:text-emerald-800 transition-colors">
-                  Student Saved Items
-                </button>
+                <a
+                  href="/about"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('about'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
+                  About Us & Verification
+                </a>
               </li>
-              <li className="text-slate-400">
-                Contact: <span className="text-slate-600">{siteSettings.contact_email}</span>
+              <li>
+                <a
+                  href="/contact"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('contact'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
+                  Contact Support Desk
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/dashboard"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('dashboard'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
+                  Student Saved Items
+                </a>
               </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar with Legal Links */}
         <div className="mt-12 border-t border-slate-100 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-400">
           <p>© {new Date().getFullYear()} Pakistan Student Hub. Independent academic directory and verification engine.</p>
-          <div className="flex items-center gap-4">
-            <span>Fair-Use Education Information Policy</span>
+          <div className="flex flex-wrap items-center gap-4">
+            <a
+              href="/privacy-policy"
+              onClick={(e) => { e.preventDefault(); onNavigateTab('privacy-policy'); }}
+              className="hover:text-slate-600 transition-colors"
+            >
+              Privacy Policy
+            </a>
             <span aria-hidden="true">·</span>
-            <span>Non-Affiliated with Commercial Coaching Academies</span>
+            <a
+              href="/terms"
+              onClick={(e) => { e.preventDefault(); onNavigateTab('terms'); }}
+              className="hover:text-slate-600 transition-colors"
+            >
+              Terms of Service
+            </a>
+            <span aria-hidden="true">·</span>
+            <a
+              href="/disclaimer"
+              onClick={(e) => { e.preventDefault(); onNavigateTab('disclaimer'); }}
+              className="hover:text-slate-600 transition-colors"
+            >
+              Fair-Use Disclaimer
+            </a>
           </div>
         </div>
       </div>

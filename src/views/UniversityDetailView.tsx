@@ -37,6 +37,7 @@ export const UniversityDetailView: React.FC<UniversityDetailViewProps> = ({
       updatePageSeo({
         title: `${university.name} (${university.short_name || university.city}) - Admissions, Programs & Fees`,
         description: `Explore verified academic programs, HEC status, admission schedule, fee estimates, and hostel facilities for ${university.name}.`,
+        canonicalPath: `/universities/${university.slug}`,
         structuredData: generateUniversitySchema(university)
       });
     }
@@ -65,7 +66,7 @@ export const UniversityDetailView: React.FC<UniversityDetailViewProps> = ({
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Breadcrumbs
         items={[
-          { label: 'Universities', onClick: onBack },
+          { label: 'Universities', href: '/universities', onClick: onBack },
           { label: university.short_name || university.name }
         ]}
       />

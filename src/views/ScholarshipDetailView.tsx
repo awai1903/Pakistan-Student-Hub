@@ -26,7 +26,8 @@ export const ScholarshipDetailView: React.FC<ScholarshipDetailViewProps> = ({ sl
     if (scholarship) {
       updatePageSeo({
         title: `${scholarship.title} - Eligibility, Benefits & Deadline`,
-        description: `Verified information on ${scholarship.title} by ${scholarship.provider}. Includes financial coverage, eligibility criteria, and official application process.`
+        description: `Verified information on ${scholarship.title} by ${scholarship.provider}. Includes financial coverage, eligibility criteria, and official application process.`,
+        canonicalPath: `/scholarships/${scholarship.slug}`
       });
     }
   }, [scholarship]);
@@ -54,7 +55,7 @@ export const ScholarshipDetailView: React.FC<ScholarshipDetailViewProps> = ({ sl
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       <Breadcrumbs
         items={[
-          { label: 'Scholarships', onClick: onBack },
+          { label: 'Scholarships', href: '/scholarships', onClick: onBack },
           { label: scholarship.title }
         ]}
       />

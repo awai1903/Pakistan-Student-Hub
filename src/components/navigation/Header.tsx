@@ -40,21 +40,21 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   const primaryNavItems = [
-    { id: 'universities', label: 'Universities' },
-    { id: 'admissions', label: 'Admissions' },
-    { id: 'scholarships', label: 'Scholarships' },
-    { id: 'entry-tests', label: 'Entry Tests' },
-    { id: 'compare', label: 'Compare' },
-    { id: 'deadlines', label: 'Deadlines' }
+    { id: 'universities', label: 'Universities', path: '/universities' },
+    { id: 'admissions', label: 'Admissions', path: '/admissions' },
+    { id: 'scholarships', label: 'Scholarships', path: '/scholarships' },
+    { id: 'entry-tests', label: 'Entry Tests', path: '/entry-tests' },
+    { id: 'compare', label: 'Compare', path: '/compare' },
+    { id: 'deadlines', label: 'Deadlines', path: '/deadlines' }
   ];
 
   const secondaryNavItems = [
-    { id: 'resources', label: 'Past Papers' },
-    { id: 'jobs', label: 'Jobs' },
-    { id: 'internships', label: 'Internships' },
-    { id: 'courses', label: 'Courses' },
-    { id: 'news', label: 'News' },
-    { id: 'reviews', label: 'Reviews & Ideas' }
+    { id: 'resources', label: 'Past Papers', path: '/resources' },
+    { id: 'jobs', label: 'Jobs', path: '/jobs' },
+    { id: 'internships', label: 'Internships', path: '/internships' },
+    { id: 'courses', label: 'Courses', path: '/courses' },
+    { id: 'news', label: 'News', path: '/news' },
+    { id: 'reviews', label: 'Reviews & Ideas', path: '/reviews' }
   ];
 
   const allNavItems = [...primaryNavItems, ...secondaryNavItems];
@@ -73,12 +73,16 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="mx-auto flex max-w-7xl items-center justify-center gap-2">
             <span>{siteSettings.announcement_bar.text}</span>
             {siteSettings.announcement_bar.link_url && (
-              <button
-                onClick={() => handleNavClick('deadlines')}
+              <a
+                href={siteSettings.announcement_bar.link_url}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('deadlines');
+                }}
                 className="font-medium text-emerald-400 hover:text-white underline underline-offset-2"
               >
                 View verified calendar →
-              </button>
+              </a>
             )}
           </div>
         </div>
@@ -90,8 +94,12 @@ export const Header: React.FC<HeaderProps> = ({
           
           {/* Zone 1: Single text element wordmark */}
           <div className="flex items-center gap-3">
-            <button
-              onClick={() => handleNavClick('home')}
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('home');
+              }}
               className="text-left group flex items-center gap-2"
               aria-label="Pakistan Student Hub Home"
             >
@@ -101,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="text-xl font-bold tracking-tight text-slate-900 group-hover:text-emerald-900 transition-colors">
                 Pakistan Student Hub
               </span>
-            </button>
+            </a>
           </div>
 
           {/* Zone 2: Navigation links */}
@@ -109,9 +117,13 @@ export const Header: React.FC<HeaderProps> = ({
             {primaryNavItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => handleNavClick(item.id)}
+                  href={item.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
                   className={`whitespace-nowrap transition-colors py-1 ${
                     isActive
                       ? 'text-emerald-800 font-semibold border-b-2 border-emerald-800'
@@ -119,7 +131,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`}
                 >
                   {item.label}
-                </button>
+                </a>
               );
             })}
 
@@ -131,17 +143,21 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
               <div className="absolute left-0 top-full hidden w-48 rounded-lg border border-slate-200 bg-white p-2 shadow-lg group-hover:block z-50">
                 {secondaryNavItems.map((item) => (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => handleNavClick(item.id)}
-                    className={`w-full text-left rounded-md px-3 py-2 text-xs font-medium transition-colors ${
+                    href={item.path}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.id);
+                    }}
+                    className={`block w-full text-left rounded-md px-3 py-2 text-xs font-medium transition-colors ${
                       activeTab === item.id
-                        ? 'bg-emerald-50 text-emerald-900'
+                        ? 'bg-emerald-50 text-emerald-900 font-semibold'
                         : 'text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     {item.label}
-                  </button>
+                  </a>
                 ))}
               </div>
             </div>
@@ -262,9 +278,13 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm font-medium">
               {allNavItems.map((item) => (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => handleNavClick(item.id)}
+                  href={item.path}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
                   className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-left text-xs ${
                     activeTab === item.id
                       ? 'bg-emerald-50 text-emerald-900 font-semibold'
@@ -272,7 +292,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`}
                 >
                   <span>{item.label}</span>
-                </button>
+                </a>
               ))}
             </div>
           </div>

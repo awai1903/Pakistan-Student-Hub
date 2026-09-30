@@ -1,7 +1,33 @@
 # Robots.txt for Pakistan Student Hub
 # Production Domain: https://pakistanstudenthub.netlify.app/
+
 User-agent: *
 Allow: /
+Allow: /universities
+Allow: /universities/*
+Allow: /admissions
+Allow: /scholarships
+Allow: /scholarships/*
+Allow: /entry-tests
+Allow: /entry-tests/*
+Allow: /compare
+Allow: /compare/*
+Allow: /deadlines
+Allow: /jobs
+Allow: /internships
+Allow: /courses
+Allow: /resources
+Allow: /news
+Allow: /news/*
+Allow: /reviews
+Allow: /about
+Allow: /contact
+Allow: /privacy-policy
+Allow: /terms
+Allow: /disclaimer
 
-# Canonical Sitemap
+# Protect private student dashboard from search engine indexing
+Disallow: /dashboard
+
+# Canonical XML Sitemap
 Sitemap: https://pakistanstudenthub.netlify.app/sitemap.xml

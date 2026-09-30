@@ -22,16 +22,21 @@ import { ResourcesView } from './views/ResourcesView';
 import { NewsView } from './views/NewsView';
 import { StudentDashboardView } from './views/StudentDashboardView';
 import { ReviewsView } from './views/ReviewsView';
+import { AboutView } from './views/AboutView';
+import { ContactView } from './views/ContactView';
+import { PrivacyPolicyView } from './views/PrivacyPolicyView';
+import { TermsView } from './views/TermsView';
+import { DisclaimerView } from './views/DisclaimerView';
 import { FeedbackFloatingButton } from './components/feedback/FeedbackFloatingButton';
 import { AdsterraSmartlink } from './components/ads/AdsterraSmartlink';
 import { AdsterraResponsiveBanner } from './components/ads/AdsterraResponsiveBanner';
 import { dataStore } from './lib/dataStore';
 import { aiSyncEngine } from './lib/aiSyncEngine';
+import { router, RouteState } from './lib/router';
 import { updatePageSeo } from './lib/seo';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<string>('home');
-  const [selectedSlug, setSelectedSlug] = useState<string | undefined>(undefined);
+  const [routeState, setRouteState] = useState<RouteState>(() => router.getState());
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [, setTick] = useState(0);
 
@@ -43,103 +48,137 @@ export default function App() {
     const unsubAi = aiSyncEngine.subscribe(() => {
       setTick((t) => t + 1);
     });
+    const unsubRouter = router.subscribe((state) => {
+      setRouteState(state);
+    });
+
     return () => {
       unsubData();
       unsubAi();
+      unsubRouter();
     };
   }, []);
 
-  // Sync hash routing if present
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        const [tab, slug] = hash.split('/');
-        if (tab) {
-          setActiveTab(tab);
-          setSelectedSlug(slug);
-        }
-      }
-    };
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
-  // Update SEO Title & Meta based on active tab
+  // Update SEO Title, Canonical, & Meta based on active route
   useEffect(() => {
     const siteSettings = dataStore.getSiteSettings();
-    if (activeTab === 'home') {
+    const route = routeState.route;
+
+    if (route === 'home') {
       updatePageSeo({
         title: 'Pakistan Student Hub - Admissions, Scholarships & Universities',
-        description: siteSettings.description
+        description: siteSettings.description,
+        canonicalPath: '/'
       });
-    } else if (activeTab === 'universities') {
+    } else if (route === 'universities') {
       updatePageSeo({
-        title: 'HEC Recognized Universities Directory in Pakistan',
-        description: 'Complete roster of verified public and private universities across Punjab, Sindh, KPK, Islamabad, and Balochistan.'
+        title: 'HEC Recognized Universities in Pakistan - Pakistan Student Hub',
+        description: 'Complete roster of verified public and private universities across Punjab, Sindh, KPK, Islamabad, and Balochistan.',
+        canonicalPath: '/universities'
       });
-    } else if (activeTab === 'admissions') {
+    } else if (route === 'admissions') {
       updatePageSeo({
-        title: 'Latest University Admissions Fall 2026 / Spring 2027 in Pakistan',
-        description: 'Verified intake schedules, eligibility criteria, entry test requirements, and direct application links.'
+        title: 'Latest University Admissions in Pakistan - Pakistan Student Hub',
+        description: 'Verified intake schedules, eligibility criteria, entry test requirements, and direct application links.',
+        canonicalPath: '/admissions'
       });
-    } else if (activeTab === 'scholarships') {
+    } else if (route === 'scholarships') {
       updatePageSeo({
-        title: 'Scholarships for Pakistani Students - Need-Based & Fully Funded',
-        description: 'HEC need-based, Ehsaas, British Council Scottish scholarships for women, and bilateral foreign awards.'
+        title: 'Scholarships for Pakistani Students - Pakistan Student Hub',
+        description: 'HEC need-based, Ehsaas, British Council Scottish scholarships for women, and bilateral foreign awards.',
+        canonicalPath: '/scholarships'
       });
-    } else if (activeTab === 'entry-tests') {
+    } else if (route === 'entry-tests') {
       updatePageSeo({
-        title: 'MDCAT, ECAT, NET & NAT Entry Tests Schedules in Pakistan',
-        description: 'Standardized entrance examination syllabus, pattern, registration deadlines, and testing venues.'
+        title: 'MDCAT, ECAT, NET & NAT Entry Tests - Pakistan Student Hub',
+        description: 'Standardized entrance examination syllabus, pattern, registration deadlines, and testing venues.',
+        canonicalPath: routeState.slug ? `/entry-tests/${routeState.slug}` : '/entry-tests'
       });
-    } else if (activeTab === 'deadlines') {
+    } else if (route === 'deadlines') {
       updatePageSeo({
-        title: 'Verified Pakistani Educational Deadlines & Closing Dates',
-        description: 'Chronological deadline calendar for closing admissions, scholarships, and registration forms.'
+        title: 'University Admissions & Scholarship Deadlines - Pakistan Student Hub',
+        description: 'Chronological deadline calendar for closing admissions, scholarships, and registration forms.',
+        canonicalPath: '/deadlines'
       });
-    } else if (activeTab === 'compare') {
+    } else if (route === 'jobs') {
       updatePageSeo({
-        title: 'Compare Pakistani Universities Side-by-Side',
-        description: 'Objective factual comparison of fee structures, entry requirements, programs, and hostel facilities.'
+        title: 'Student Jobs in Pakistan - Pakistan Student Hub',
+        description: 'Explore entry-level jobs, graduate trainee programs, and part-time positions for students in Pakistan.',
+        canonicalPath: '/jobs'
       });
-    } else if (activeTab === 'reviews') {
+    } else if (route === 'internships') {
       updatePageSeo({
-        title: 'Student Reviews & Feature Requests - Pakistan Student Hub',
-        description: 'Submit your reviews, suggest missing universities and scholarships, and vote on upcoming platform features.'
+        title: 'Internships for Students in Pakistan - Pakistan Student Hub',
+        description: 'Paid summer internships, corporate internships, and tech traineeships across Pakistan.',
+        canonicalPath: '/internships'
+      });
+    } else if (route === 'courses') {
+      updatePageSeo({
+        title: 'University Courses & Degree Programs in Pakistan - Pakistan Student Hub',
+        description: 'Higher education degree programs, accredited faculties, course outlines, and certifications across Pakistan.',
+        canonicalPath: '/courses'
+      });
+    } else if (route === 'resources') {
+      updatePageSeo({
+        title: 'Past Papers & Student Resources - Pakistan Student Hub',
+        description: 'Download past papers, entry test preparation material, syllabi, and academic study notes.',
+        canonicalPath: '/resources'
+      });
+    } else if (route === 'news') {
+      updatePageSeo({
+        title: 'Education News & Updates in Pakistan - Pakistan Student Hub',
+        description: 'Latest educational circulars, HEC updates, admission notifications, and policy announcements.',
+        canonicalPath: '/news'
+      });
+    } else if (route === 'news-detail' && routeState.slug) {
+      const article = dataStore.getNewsBySlug(routeState.slug);
+      updatePageSeo({
+        title: article ? `${article.title} - Pakistan Student Hub` : 'Education News & Updates - Pakistan Student Hub',
+        description: article ? article.summary : 'Latest educational circulars and notifications across Pakistan.',
+        canonicalPath: `/news/${routeState.slug}`
+      });
+    } else if (route === 'compare') {
+      updatePageSeo({
+        title: 'Compare Pakistani Universities Side-by-Side - Pakistan Student Hub',
+        description: 'Objective factual comparison of fee structures, entry requirements, programs, and hostel facilities.',
+        canonicalPath: routeState.slug ? `/compare/${routeState.slug}` : '/compare'
+      });
+    } else if (route === 'reviews') {
+      updatePageSeo({
+        title: 'Student Reviews - Pakistan Student Hub',
+        description: 'Submit your reviews, suggest missing universities and scholarships, and vote on upcoming platform features.',
+        canonicalPath: '/reviews'
+      });
+    } else if (route === 'dashboard') {
+      updatePageSeo({
+        title: 'Student Saved Items & Reminders - Pakistan Student Hub',
+        description: 'Your personalized student dashboard tracking saved admissions, scholarships, and deadline reminders.',
+        canonicalPath: '/dashboard'
       });
     }
-  }, [activeTab]);
+  }, [routeState]);
 
   const handleNavigate = (tab: string, slug?: string) => {
-    setActiveTab(tab);
-    setSelectedSlug(slug);
-    if (slug) {
-      window.location.hash = `#${tab}/${slug}`;
-    } else {
-      window.location.hash = `#${tab}`;
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    router.navigateTab(tab, slug);
   };
 
   const handleSelectFromSearch = (type: string, idOrSlug: string) => {
     if (type === 'university') {
-      handleNavigate('university-detail', idOrSlug);
+      router.navigate(`/universities/${idOrSlug}`);
     } else if (type === 'scholarship') {
-      handleNavigate('scholarship-detail', idOrSlug);
+      router.navigate(`/scholarships/${idOrSlug}`);
     } else if (type === 'admission') {
-      handleNavigate('admissions');
+      router.navigate('/admissions');
     } else if (type === 'entry-test') {
-      handleNavigate('entry-tests', idOrSlug);
+      router.navigate(`/entry-tests/${idOrSlug}`);
     } else if (type === 'job') {
-      handleNavigate('jobs');
+      router.navigate('/jobs');
     } else if (type === 'internship') {
-      handleNavigate('internships');
+      router.navigate('/internships');
     } else if (type === 'course') {
-      handleNavigate('courses');
+      router.navigate('/courses');
     } else if (type === 'news') {
-      handleNavigate('news', idOrSlug);
+      router.navigate(`/news/${idOrSlug}`);
     }
   };
 
@@ -154,7 +193,7 @@ export default function App() {
 
       {/* Top Navigation Bar */}
       <Header
-        activeTab={activeTab}
+        activeTab={routeState.route}
         setActiveTab={(t) => handleNavigate(t)}
         openSearchModal={() => setSearchModalOpen(true)}
         savedCount={savedCount}
@@ -163,81 +202,141 @@ export default function App() {
 
       {/* Main Content Viewport */}
       <main className="flex-1">
-        {activeTab === 'home' && (
+        {routeState.route === 'home' && (
           <HomeView
             onNavigate={(tab, slug) => handleNavigate(tab, slug)}
             openSearchModal={() => setSearchModalOpen(true)}
           />
         )}
-        {activeTab === 'universities' && (
+
+        {routeState.route === 'universities' && (
           <UniversitiesView
             onSelectUniversity={(slug) => handleNavigate('university-detail', slug)}
             onNavigateHome={() => handleNavigate('home')}
           />
         )}
-        {activeTab === 'university-detail' && selectedSlug && (
+
+        {routeState.route === 'university-detail' && routeState.slug && (
           <UniversityDetailView
-            slug={selectedSlug}
+            slug={routeState.slug}
             onBack={() => handleNavigate('universities')}
             onNavigateCompare={(slug) => handleNavigate('compare', slug)}
           />
         )}
-        {activeTab === 'admissions' && (
+
+        {routeState.route === 'admissions' && (
           <AdmissionsView
             onNavigateHome={() => handleNavigate('home')}
             onSelectUniversity={(slug) => handleNavigate('university-detail', slug)}
           />
         )}
-        {activeTab === 'scholarships' && (
+
+        {routeState.route === 'scholarships' && (
           <ScholarshipsView
             onSelectScholarship={(slug) => handleNavigate('scholarship-detail', slug)}
             onNavigateHome={() => handleNavigate('home')}
           />
         )}
-        {activeTab === 'scholarship-detail' && selectedSlug && (
+
+        {routeState.route === 'scholarship-detail' && routeState.slug && (
           <ScholarshipDetailView
-            slug={selectedSlug}
+            slug={routeState.slug}
             onBack={() => handleNavigate('scholarships')}
           />
         )}
-        {activeTab === 'entry-tests' && (
+
+        {routeState.route === 'entry-tests' && (
           <EntryTestsView
             onNavigateHome={() => handleNavigate('home')}
-            selectedSlug={selectedSlug}
+            selectedSlug={routeState.slug}
           />
         )}
-        {activeTab === 'compare' && (
+
+        {routeState.route === 'compare' && (
           <CompareView
-            initialSlug={selectedSlug}
+            initialSlug={routeState.slug}
             onNavigateUniversity={(slug) => handleNavigate('university-detail', slug)}
           />
         )}
-        {activeTab === 'deadlines' && (
+
+        {routeState.route === 'deadlines' && (
           <DeadlinesView onNavigateHome={() => handleNavigate('home')} />
         )}
-        {activeTab === 'jobs' && (
+
+        {routeState.route === 'jobs' && (
           <JobsAndInternshipsView initialType="jobs" />
         )}
-        {activeTab === 'internships' && (
+
+        {routeState.route === 'internships' && (
           <JobsAndInternshipsView initialType="internships" />
         )}
-        {activeTab === 'courses' && (
+
+        {routeState.route === 'courses' && (
           <CoursesView />
         )}
-        {activeTab === 'resources' && (
+
+        {routeState.route === 'resources' && (
           <ResourcesView />
         )}
-        {activeTab === 'news' && (
-          <NewsView selectedSlug={selectedSlug} />
+
+        {routeState.route === 'news' && (
+          <NewsView selectedSlug={undefined} />
         )}
-        {activeTab === 'news-detail' && selectedSlug && (
-          <NewsView selectedSlug={selectedSlug} />
+
+        {routeState.route === 'news-detail' && routeState.slug && (
+          <NewsView selectedSlug={routeState.slug} />
         )}
-        {activeTab === 'dashboard' && (
+
+        {routeState.route === 'dashboard' && (
           <StudentDashboardView onNavigateTab={(tab, slug) => handleNavigate(tab, slug)} />
         )}
-        {activeTab === 'reviews' && (
+
+        {routeState.route === 'reviews' && (
           <ReviewsView />
+        )}
+
+        {routeState.route === 'about' && (
+          <AboutView onNavigateTab={(tab, slug) => handleNavigate(tab, slug)} />
+        )}
+
+        {routeState.route === 'contact' && (
+          <ContactView onNavigateHome={() => handleNavigate('home')} />
+        )}
+
+        {routeState.route === 'privacy-policy' && (
+          <PrivacyPolicyView />
+        )}
+
+        {routeState.route === 'terms' && (
+          <TermsView />
+        )}
+
+        {routeState.route === 'disclaimer' && (
+          <DisclaimerView />
+        )}
+
+        {routeState.route === 'not-found' && (
+          <div className="mx-auto max-w-3xl px-4 py-20 text-center space-y-4">
+            <h1 className="font-display text-4xl font-extrabold text-slate-900">404</h1>
+            <h2 className="text-lg font-bold text-slate-800">Page Not Found</h2>
+            <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              The requested academic page does not exist or has been relocated. You can browse universities, verified scholarships, or return home.
+            </p>
+            <div className="flex justify-center gap-3 pt-4">
+              <button
+                onClick={() => handleNavigate('home')}
+                className="rounded-lg bg-emerald-800 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-900 transition-colors shadow-2xs"
+              >
+                Return Home
+              </button>
+              <button
+                onClick={() => setSearchModalOpen(true)}
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+              >
+                Search Hub
+              </button>
+            </div>
+          </div>
         )}
       </main>
 

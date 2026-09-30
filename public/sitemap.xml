@@ -6,92 +6,578 @@
   <!-- Homepage -->
   <url>
     <loc>https://pakistanstudenthub.netlify.app/</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- Universities Directory -->
+
+  <!-- Core Academic Portals -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=universities</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/universities</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Admissions Portal -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=admissions</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/admissions</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Scholarships -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=scholarships</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
-  <!-- Entry Tests (MDCAT, ECAT, NET, NAT) -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=entry-tests</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/entry-tests</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Closing Deadlines Calendar -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=deadlines</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/compare</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/deadlines</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Student Jobs & Graduate Opportunities -->
+
+  <!-- Career, Skills & Resources -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=jobs</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/jobs</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Paid Internships -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=internships</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/internships</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Higher Education Degree Programs & Courses -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=courses</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/courses</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- Past Papers & Student Resources -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=resources</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/resources</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-  <!-- University Comparison Tool -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=compare</loc>
-    <lastmod>2026-09-29</lastmod>
+    <loc>https://pakistanstudenthub.netlify.app/news</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/reviews</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Legal & Information Pages -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/about</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <!-- Educational News & Updates -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=news</loc>
+    <loc>https://pakistanstudenthub.netlify.app/contact</loc>
     <lastmod>2026-09-30</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/privacy-policy</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/terms</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/disclaimer</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Verified Universities Dynamic Profiles -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/nust</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <!-- Student Reviews & Feature Requests -->
   <url>
-    <loc>https://pakistanstudenthub.netlify.app/?tab=reviews</loc>
+    <loc>https://pakistanstudenthub.netlify.app/universities/qau</loc>
     <lastmod>2026-09-30</lastmod>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/fast-nuces</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/comsats-university-islamabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/iiui-islamabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/pieas-islamabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/aiou-islamabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/numl-islamabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/air-university-islamabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/bahria-university-islamabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/pu-lahore</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/lums</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uet-lahore</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/gcu-lahore</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uaf-faisalabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/bzu-multan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/iub-bahawalpur</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uog-gujrat</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/itu-lahore</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/kemu-lahore</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/ku-karachi</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/iba-karachi</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/aku-karachi</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/ned-karachi</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/sukkur-iba</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/duhs-karachi</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uop-peshawar</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/giki-topi</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uet-peshawar</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/buitems-quetta</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uob-quetta</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uajk-muzaffarabad</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/must-mirpur</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/kiu-gilgit</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/universities/uobs-skardu</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Verified Scholarships Dynamic Profiles -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/hec-scholarship-students-with-disabilities</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/punjab-government-disabled-students-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/sindh-differently-abled-higher-education-grant</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/pbm-special-persons-educational-aid</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/scottish-government-pakistan-scholarships-women-ug</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/scottish-government-pakistan-scholarships-women-masters</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/british-council-women-in-stem-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/fatima-jinnah-women-merit-need-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/prime-ministers-national-talent-hunt-sports-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/lums-national-outreach-programme-nop</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/iba-karachi-national-talent-hunt-program</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/sukkur-iba-ogdcl-national-talent-hunt-program</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/fast-nuces-youth-tech-talent-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/prime-ministers-laptop-and-merit-scholarship-scheme</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/peef-masters-merit-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/hec-indigenous-5000-fellowships-ms-phd</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/cm-punjab-honors-merit-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/chief-minister-balochistan-higher-education-merit-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/kp-chief-minister-starlight-merit-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/hec-need-based-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/ehsaas-undergraduate-scholarship-project-phase-3</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/pak-usaid-merit-and-needs-based-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/diya-pakistan-educational-foundation-grants</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/ihsan-trust-interest-free-educational-loan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/sindh-educational-endowment-fund-seef</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/balochistan-education-endowment-fund-beef</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/peef-special-quota-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/ajk-state-education-endowment-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/mora-minority-community-scholarship</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/hec-balochistan-and-merged-districts-fata-scholarship-phase-3</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/chinese-government-scholarship-csc-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/turkiye-burslari-scholarships-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/fulbright-scholarship-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/stipendium-hungaricum-scholarship-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/commonwealth-scholarships-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/mext-japan-government-scholarship-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/scholarships/chevening-uk-master-scholarship-pakistan</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Verified News Dynamic Articles -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/news/scottish-government-pakistan-scholarships-open-2026</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/news/hec-disability-scholarship-fee-waiver-policy</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/news/pm-youth-talent-hunt-trials-nationwide</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/news/pakistan-university-admissions-schedule-active</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

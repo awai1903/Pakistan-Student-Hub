@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ChevronRight, 
   ExternalLink 
@@ -7,6 +7,7 @@ import { dataStore } from '../lib/dataStore';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { VerificationBadge } from '../components/common/VerificationBadge';
 import { AdSlot } from '../components/ads/AdSlot';
+import { router } from '../lib/router';
 
 interface NewsViewProps {
   selectedSlug?: string;
@@ -14,11 +15,10 @@ interface NewsViewProps {
 
 export const NewsView: React.FC<NewsViewProps> = ({ selectedSlug }) => {
   const newsList = dataStore.getNews();
-  const [activeArticleSlug, setActiveArticleSlug] = useState<string | null>(selectedSlug || null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const activeArticle = activeArticleSlug
-    ? newsList.find((n) => n.slug === activeArticleSlug)
+  const activeArticle = selectedSlug
+    ? newsList.find((n) => n.slug === selectedSlug)
     : null;
 
   const filteredNews = newsList.filter((n) => {
@@ -31,7 +31,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ selectedSlug }) => {
         items={
           activeArticle
             ? [
-                { label: 'Education News', onClick: () => setActiveArticleSlug(null) },
+                { label: 'Education News', href: '/news', onClick: () => router.navigate('/news') },
                 { label: activeArticle.title }
               ]
             : [{ label: 'Education News' }]
@@ -42,7 +42,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ selectedSlug }) => {
         /* Full Article View */
         <div className="mx-auto max-w-4xl space-y-6 bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
           <button
-            onClick={() => setActiveArticleSlug(null)}
+            onClick={() => router.navigate('/news')}
             className="text-xs font-semibold text-emerald-800 hover:underline"
           >
             ← Back to all circulars
@@ -123,10 +123,14 @@ export const NewsView: React.FC<NewsViewProps> = ({ selectedSlug }) => {
           {/* News Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {filteredNews.map((item) => (
-              <div
+              <a
                 key={item.id}
-                onClick={() => setActiveArticleSlug(item.slug)}
-                className="group cursor-pointer flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-xs hover:border-slate-300 transition-all"
+                href={`/news/${item.slug}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.navigate(`/news/${item.slug}`);
+                }}
+                className="group cursor-pointer flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-xs hover:border-slate-300 transition-all text-left"
               >
                 <div>
                   <div className="flex items-center justify-between text-xs text-slate-500 mb-2">
@@ -150,7 +154,7 @@ export const NewsView: React.FC<NewsViewProps> = ({ selectedSlug }) => {
                     <ChevronRight className="h-3 w-3" />
                   </span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>

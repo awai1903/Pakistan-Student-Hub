@@ -230,9 +230,15 @@ export const StudentDashboardView: React.FC<StudentDashboardViewProps> = ({ onNa
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => {
-                        if (item.item_type === 'university') onNavigateTab('university-detail', item.item_id.replace('u-', ''));
-                        else if (item.item_type === 'scholarship') onNavigateTab('scholarship-detail', item.item_id.replace('sch-', ''));
-                        else onNavigateTab(item.item_type === 'admission' ? 'admissions' : 'internships');
+                        if (item.item_type === 'university') {
+                          const uni = dataStore.getUniversities().find((u) => u.id === item.item_id);
+                          onNavigateTab('university-detail', uni ? uni.slug : item.item_id.replace('u-', ''));
+                        } else if (item.item_type === 'scholarship') {
+                          const sch = dataStore.getScholarships().find((s) => s.id === item.item_id);
+                          onNavigateTab('scholarship-detail', sch ? sch.slug : item.item_id.replace('sch-', ''));
+                        } else {
+                          onNavigateTab(item.item_type === 'admission' ? 'admissions' : 'internships');
+                        }
                       }}
                       className="rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100"
                     >

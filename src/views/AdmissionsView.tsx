@@ -99,9 +99,11 @@ export const AdmissionsView: React.FC<AdmissionsViewProps> = () => {
             >
               <option value="all">All Fields & Degrees</option>
               <option value="Engineering">Engineering</option>
-              <option value="Computing">Computing / CS</option>
-              <option value="MBBS">Medical / MBBS</option>
-              <option value="Business">Business / BBA</option>
+              <option value="Computing">Computing & AI</option>
+              <option value="MBBS">Medical / MBBS / Health</option>
+              <option value="Business">Business & Management</option>
+              <option value="Law">Law (LLB)</option>
+              <option value="Sciences">Natural & Social Sciences</option>
             </select>
           </div>
 

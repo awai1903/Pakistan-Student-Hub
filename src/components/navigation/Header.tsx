@@ -274,15 +274,6 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               ))}
             </div>
-            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>AI Data Sync: <strong className="font-semibold text-emerald-800">Autonomous 24/7</strong></span>
-              </span>
-              <span className="text-[11px] text-slate-400">
-                Official Portals Monitored
-              </span>
-            </div>
           </div>
         )}
       </header>

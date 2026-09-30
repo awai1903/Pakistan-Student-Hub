@@ -134,11 +134,22 @@ export const UniversityDetailView: React.FC<UniversityDetailViewProps> = ({
               <Bookmark className={`h-3.5 w-3.5 ${isSaved ? 'fill-emerald-800' : ''}`} />
               <span>{isSaved ? 'Saved' : 'Save'}</span>
             </button>
+            {university.admission_portal_url && (
+              <a
+                href={university.admission_portal_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-800 px-3.5 py-1.5 font-semibold text-white hover:bg-emerald-900 shadow-2xs transition-colors"
+              >
+                <span>Online Admission Portal</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            )}
             <a
               href={university.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-800 px-3.5 py-1.5 font-semibold text-white hover:bg-emerald-900 shadow-2xs transition-colors"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-1.5 font-semibold text-slate-800 hover:bg-slate-50 shadow-2xs transition-colors"
             >
               <span>Official Website</span>
               <ExternalLink className="h-3.5 w-3.5" />

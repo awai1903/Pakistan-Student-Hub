@@ -65,6 +65,11 @@ export const ScholarshipDetailView: React.FC<ScholarshipDetailViewProps> = ({ sl
           <span className="rounded bg-emerald-50 px-2.5 py-0.5 font-bold uppercase tracking-wider text-emerald-800 border border-emerald-100">
             {scholarship.funding_type}
           </span>
+          {scholarship.category_tag && (
+            <span className="rounded bg-indigo-50 px-2.5 py-0.5 font-bold uppercase tracking-wider text-indigo-800 border border-indigo-100">
+              {scholarship.category_tag}
+            </span>
+          )}
           <span className="rounded bg-slate-100 px-2.5 py-0.5 text-slate-700 font-semibold">
             {scholarship.study_level}
           </span>
@@ -81,6 +86,12 @@ export const ScholarshipDetailView: React.FC<ScholarshipDetailViewProps> = ({ sl
           <Building className="h-4 w-4" />
           <span>Awarded & Administered by {scholarship.provider}</span>
         </div>
+
+        {scholarship.target_quota && (
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200 text-xs font-semibold">
+            <span>🎯 Eligible Quota: {scholarship.target_quota}</span>
+          </div>
+        )}
 
         {/* Verification and Action Bar */}
         <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">

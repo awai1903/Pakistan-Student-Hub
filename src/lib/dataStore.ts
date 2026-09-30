@@ -57,7 +57,33 @@ function loadFromStorage<T>(key: string, defaultValue: T): T {
       const stored = window.localStorage.getItem(key);
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (parsed !== null && parsed !== undefined) return parsed;
+        if (parsed !== null && parsed !== undefined) {
+          // If both parsed and defaultValue are arrays of objects with id, merge new seed items
+          if (Array.isArray(parsed) && Array.isArray(defaultValue) && defaultValue.length > 0 && defaultValue[0]?.id) {
+            const existingIdMap = new Map((parsed as any[]).map((item) => [item.id, item]));
+            let hasNew = false;
+            const merged = [...parsed];
+            for (const defItem of defaultValue as any[]) {
+              if (!existingIdMap.has(defItem.id)) {
+                merged.push(defItem);
+                hasNew = true;
+              } else {
+                const idx = merged.findIndex(m => m.id === defItem.id);
+                if (idx !== -1 && (!merged[idx].admission_portal_url || !merged[idx].category_tag)) {
+                  merged[idx] = { ...merged[idx], ...defItem };
+                  hasNew = true;
+                }
+              }
+            }
+            if (hasNew) {
+              try {
+                window.localStorage.setItem(key, JSON.stringify(merged));
+              } catch (inner) {}
+            }
+            return merged as unknown as T;
+          }
+          return parsed;
+        }
       }
       try {
         window.localStorage.setItem(key, JSON.stringify(defaultValue));

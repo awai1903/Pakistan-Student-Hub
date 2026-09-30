@@ -35,6 +35,7 @@ export interface University {
   university_type: string; // e.g. "General", "Engineering & Technology", "Medical", "Business"
   sector: UniversitySector;
   website: string;
+  admission_portal_url?: string;
   contact_email: string;
   phone: string;
   address: string;
@@ -119,6 +120,9 @@ export interface Scholarship {
   eligibility: string;
   age_limit?: string;
   academic_requirements: string;
+  category_tag?: 'Merit-Based' | 'Need-Based' | 'Talent & Sports' | 'Disability Quota' | 'Women & Girls' | 'Provincial Endowment' | 'International' | 'Minority Quota';
+  target_quota?: string;
+  online_portal_url?: string;
   financial_benefits: string;
   required_documents: string[];
   opening_date: string;

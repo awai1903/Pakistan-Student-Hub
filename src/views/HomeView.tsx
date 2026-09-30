@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { 
   Search, 
   ArrowRight, 
   ExternalLink, 
   ChevronRight, 
   MapPin, 
-  Clock 
+  Clock,
+  Navigation,
+  Compass,
+  X
 } from 'lucide-react';
 import { dataStore } from '../lib/dataStore';
 import { VerificationBadge } from '../components/common/VerificationBadge';
 import { AdSlot } from '../components/ads/AdSlot';
 import { campusHeroImage } from '../data/verifiedSeedData';
+import { 
+  calculateDistanceKm, 
+  formatDistance, 
+  getUniversityCoordinates, 
+  getCurrentUserLocation, 
+  getClosestCity, 
+  PAKISTAN_CITIES, 
+  GeoCoordinates 
+} from '../lib/geoUtils';
 
 interface HomeViewProps {
   onNavigate: (tab: string, slug?: string) => void;
@@ -19,7 +31,13 @@ interface HomeViewProps {
 
 export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal }) => {
   const [quickSearch, setQuickSearch] = useState('');
-  const universities = dataStore.getUniversities().slice(0, 4);
+  const [uniSearchQuery, setUniSearchQuery] = useState('');
+  const [userLocation, setUserLocation] = useState<GeoCoordinates | null>(null);
+  const [locationName, setLocationName] = useState<string>('');
+  const [isDetectingLocation, setIsDetectingLocation] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
+
+  const allUniversities = dataStore.getUniversities();
   const admissions = dataStore.getAdmissions().slice(0, 4);
   const scholarships = dataStore.getScholarships().slice(0, 4);
   const entryTests = dataStore.getEntryTests().slice(0, 4);
@@ -27,6 +45,86 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal 
   const internships = dataStore.getInternships().slice(0, 2);
   const news = dataStore.getNews().slice(0, 3);
   const upcomingDeadlines = dataStore.getUpcomingDeadlines().slice(0, 3);
+
+  // Request browser GPS
+  const handleDetectLocation = async () => {
+    setIsDetectingLocation(true);
+    setLocationError(null);
+    try {
+      const coords = await getCurrentUserLocation();
+      setUserLocation(coords);
+      const closestCity = getClosestCity(coords.latitude, coords.longitude);
+      setLocationName(`${closestCity.name} (${coords.latitude.toFixed(2)}°, ${coords.longitude.toFixed(2)}°)`);
+    } catch (err: any) {
+      console.warn('Geolocation error:', err);
+      setLocationError(err.message || 'Unable to access GPS. Please pick your city from the dropdown below.');
+    } finally {
+      setIsDetectingLocation(false);
+    }
+  };
+
+  // Choose Pakistani city manually
+  const handleSelectCityLocation = (cityName: string) => {
+    if (cityName === 'none') {
+      setUserLocation(null);
+      setLocationName('');
+      return;
+    }
+    const city = PAKISTAN_CITIES[cityName];
+    if (city) {
+      setUserLocation({ latitude: city.latitude, longitude: city.longitude });
+      setLocationName(city.name);
+      setLocationError(null);
+    }
+  };
+
+  const clearLocation = () => {
+    setUserLocation(null);
+    setLocationName('');
+    setLocationError(null);
+  };
+
+  // Calculate distances & filter based on search
+  const displayedUniversities = useMemo(() => {
+    let list = allUniversities.map((uni) => {
+      const coords = getUniversityCoordinates(uni.slug, uni.city, uni.latitude, uni.longitude);
+      let dist: number | null = null;
+      if (userLocation) {
+        dist = calculateDistanceKm(
+          userLocation.latitude,
+          userLocation.longitude,
+          coords.latitude,
+          coords.longitude
+        );
+      }
+      return {
+        ...uni,
+        calculatedCoords: coords,
+        distanceKm: dist
+      };
+    });
+
+    if (uniSearchQuery.trim()) {
+      const q = uniSearchQuery.toLowerCase();
+      list = list.filter((uni) =>
+        uni.name.toLowerCase().includes(q) ||
+        uni.short_name?.toLowerCase().includes(q) ||
+        uni.city.toLowerCase().includes(q) ||
+        uni.province.toLowerCase().includes(q) ||
+        uni.programs.some((p) => p.toLowerCase().includes(q))
+      );
+    }
+
+    if (userLocation) {
+      list.sort((a, b) => {
+        if (a.distanceKm === null) return 1;
+        if (b.distanceKm === null) return -1;
+        return a.distanceKm - b.distanceKm;
+      });
+    }
+
+    return list.slice(0, 8);
+  }, [allUniversities, userLocation, uniSearchQuery]);
 
   const handleHeroSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -94,15 +192,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal 
                 {/* Popular Keywords */}
                 <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-slate-500">
                   <span className="font-medium text-slate-700">Quick explore:</span>
-                  <button onClick={() => onNavigate('universities')} className="hover:text-emerald-800 transition-colors">NUST</button>
+                  <button onClick={() => onNavigate('scholarships')} className="hover:text-emerald-800 transition-colors font-medium text-indigo-700">♿ Disability Quota</button>
+                  <span aria-hidden="true">·</span>
+                  <button onClick={() => onNavigate('scholarships')} className="hover:text-emerald-800 transition-colors font-medium text-pink-700">👩 Scottish Girls Scholarships</button>
+                  <span aria-hidden="true">·</span>
+                  <button onClick={() => onNavigate('scholarships')} className="hover:text-emerald-800 transition-colors font-medium text-amber-700">🏆 Talent Hunt</button>
                   <span aria-hidden="true">·</span>
                   <button onClick={() => onNavigate('admissions')} className="hover:text-emerald-800 transition-colors">Fall 2026 Admissions</button>
                   <span aria-hidden="true">·</span>
-                  <button onClick={() => onNavigate('entry-tests')} className="hover:text-emerald-800 transition-colors">MDCAT 2026</button>
-                  <span aria-hidden="true">·</span>
-                  <button onClick={() => onNavigate('scholarships')} className="hover:text-emerald-800 transition-colors">HEC Scholarships</button>
-                  <span aria-hidden="true">·</span>
-                  <button onClick={() => onNavigate('deadlines')} className="hover:text-emerald-800 transition-colors font-medium text-emerald-800">Closing Deadlines</button>
+                  <button onClick={() => onNavigate('universities')} className="hover:text-emerald-800 transition-colors font-medium text-emerald-800">All Pakistan Universities</button>
                 </div>
               </div>
 
@@ -292,8 +390,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal 
               className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs hover:border-slate-300 transition-colors"
             >
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
-                  <span>{sch.study_level}</span>
+                <div className="flex flex-wrap items-center justify-between text-xs text-slate-500 mb-1 gap-1">
+                  <div className="flex items-center gap-1.5">
+                    <span>{sch.study_level}</span>
+                    {sch.category_tag && (
+                      <span className="font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded text-[10px] border border-indigo-100">
+                        {sch.category_tag}
+                      </span>
+                    )}
+                  </div>
                   <span className="font-semibold text-emerald-800">{sch.funding_type}</span>
                 </div>
                 <h3 className="text-base font-bold text-slate-900">
@@ -302,6 +407,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal 
                 <p className="text-xs font-medium text-slate-600 mt-0.5">
                   Provided by {sch.provider}
                 </p>
+                {sch.target_quota && (
+                  <div className="mt-1 text-[11px] font-semibold text-amber-900 bg-amber-50 px-2 py-0.5 rounded inline-block">
+                    🎯 Quota: {sch.target_quota}
+                  </div>
+                )}
                 <p className="mt-2 text-xs text-slate-600 line-clamp-2">
                   {sch.description}
                 </p>
@@ -413,55 +523,181 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal 
         </div>
       </section>
 
-      {/* 6. POPULAR UNIVERSITIES DIRECTORY PREVIEW */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-4">
+      {/* 6. POPULAR & NEAREST UNIVERSITIES BY LOCATION */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h2 className="text-xl font-bold tracking-tight text-slate-900">HEC Recognized Universities</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Official charters, faculties, fee structures, and campus accommodation.</p>
+            <h2 className="text-xl font-bold tracking-tight text-slate-900">
+              HEC Recognized Universities & Nearest Campuses
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Search by name/program or find institutions closest to your location across all provinces.
+            </p>
           </div>
-          <button
-            onClick={() => onNavigate('universities')}
-            className="text-xs font-semibold text-emerald-800 hover:text-emerald-950 flex items-center gap-1"
-          >
-            <span>Explore All Universities</span>
-            <ChevronRight className="h-3.5 w-3.5" />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => onNavigate('universities')}
+              className="text-xs font-semibold text-emerald-800 hover:text-emerald-950 flex items-center gap-1"
+            >
+              <span>Explore All {allUniversities.length} Universities</span>
+              <ChevronRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
         </div>
 
+        {/* Location & Quick Search Filter Bar */}
+        <div className="rounded-xl border border-indigo-200 bg-gradient-to-r from-indigo-50/70 via-white to-blue-50/70 p-4 shadow-xs">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+            {/* Search Input */}
+            <div className="md:col-span-6 relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+              <input
+                type="text"
+                value={uniSearchQuery}
+                onChange={(e) => setUniSearchQuery(e.target.value)}
+                placeholder="Search university by name, short code (NUST, LUMS, FAST), city or program..."
+                className="w-full rounded-lg border border-slate-300 bg-white py-2 pl-9 pr-3 text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:border-indigo-600 focus:outline-hidden"
+              />
+              {uniSearchQuery && (
+                <button
+                  onClick={() => setUniSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+
+            {/* GPS or City Picker */}
+            <div className="md:col-span-6 flex flex-wrap items-center justify-start md:justify-end gap-2">
+              {!userLocation ? (
+                <>
+                  <button
+                    onClick={handleDetectLocation}
+                    disabled={isDetectingLocation}
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 text-xs font-semibold shadow-xs transition-colors"
+                  >
+                    <Navigation className={`h-3.5 w-3.5 ${isDetectingLocation ? 'animate-spin' : ''}`} />
+                    <span>{isDetectingLocation ? 'Locating...' : 'Use My GPS Location'}</span>
+                  </button>
+
+                  <select
+                    onChange={(e) => handleSelectCityLocation(e.target.value)}
+                    defaultValue=""
+                    className="rounded-lg border border-slate-300 bg-white py-1.5 px-2.5 text-xs text-slate-800 focus:border-indigo-600 focus:outline-hidden"
+                  >
+                    <option value="" disabled>Or choose city...</option>
+                    {Object.keys(PAKISTAN_CITIES).map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <div className="inline-flex items-center gap-1.5 bg-indigo-100 text-indigo-900 border border-indigo-300 px-3 py-1.5 rounded-lg text-xs font-semibold">
+                    <MapPin className="h-3.5 w-3.5 text-indigo-700" />
+                    <span>Near: {locationName}</span>
+                  </div>
+                  <button
+                    onClick={clearLocation}
+                    className="inline-flex items-center gap-1 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 px-2.5 py-1.5 text-xs text-slate-700 font-medium transition-colors"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                    <span>Reset</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {locationError && (
+            <div className="mt-2 text-xs text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-2">
+              ⚠️ {locationError}
+            </div>
+          )}
+        </div>
+
+        {/* University Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {universities.map((uni) => (
+          {displayedUniversities.map((uni) => (
             <div
               key={uni.id}
               onClick={() => onNavigate('university-detail', uni.slug)}
-              className="group cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xs hover:border-slate-300 hover:shadow-md transition-all"
+              className="group cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xs hover:border-slate-300 hover:shadow-md transition-all flex flex-col justify-between"
             >
-              <div className="relative h-36 w-full overflow-hidden bg-slate-100">
-                <img
-                  src={uni.cover_image}
-                  alt={uni.name}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute top-2.5 right-2.5 rounded bg-slate-900/80 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-xs">
-                  {uni.sector}
+              <div>
+                <div className="relative h-36 w-full overflow-hidden bg-slate-100">
+                  <img
+                    src={uni.cover_image}
+                    alt={uni.name}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-2.5 left-2.5 rounded bg-slate-900/80 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-xs">
+                    {uni.sector}
+                  </div>
+
+                  {uni.distanceKm !== null && (
+                    <div className="absolute top-2.5 right-2.5 rounded-full bg-indigo-950/90 text-indigo-100 border border-indigo-400/50 px-2 py-0.5 text-[11px] font-bold shadow-xs flex items-center gap-1 backdrop-blur-xs">
+                      <MapPin className="h-3 w-3 text-indigo-300" />
+                      <span>{formatDistance(uni.distanceKm)} away</span>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4">
+                  <div className="text-xs text-slate-500 flex items-center gap-1">
+                    <MapPin className="h-3 w-3 text-slate-400" />
+                    <span>{uni.city}, {uni.province}</span>
+                  </div>
+                  <h3 className="mt-1 text-sm font-bold text-slate-900 group-hover:text-emerald-800 transition-colors line-clamp-1">
+                    {uni.name} {uni.short_name ? `(${uni.short_name})` : ''}
+                  </h3>
+                  <p className="mt-1 text-xs text-slate-600 line-clamp-2">
+                    {uni.description}
+                  </p>
+
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {uni.programs.slice(0, 2).map((prog, idx) => (
+                      <span key={idx} className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-600">
+                        {prog}
+                      </span>
+                    ))}
+                    {uni.programs.length > 2 && (
+                      <span className="rounded bg-slate-100 px-1 py-0.5 text-[10px] text-slate-400">
+                        +{uni.programs.length - 2}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-              <div className="p-4">
-                <div className="text-xs text-slate-500 flex items-center gap-1">
-                  <MapPin className="h-3 w-3 text-slate-400" />
-                  <span>{uni.city}, {uni.province}</span>
-                </div>
-                <h3 className="mt-1 text-sm font-bold text-slate-900 group-hover:text-emerald-800 transition-colors line-clamp-1">
-                  {uni.name} {uni.short_name ? `(${uni.short_name})` : ''}
-                </h3>
-                <p className="mt-1 text-xs text-slate-600 line-clamp-2">
-                  {uni.description}
-                </p>
-                <div className="mt-3 flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-100">
-                  <span className="tabular-nums">Est. {uni.established_year}</span>
-                  <span className="font-medium text-emerald-800 group-hover:underline">View Profile →</span>
+
+              <div className="p-4 pt-0">
+                <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                  {uni.admission_portal_url ? (
+                    <a
+                      href={uni.admission_portal_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex items-center gap-1 font-semibold text-emerald-800 hover:text-emerald-950"
+                      title="Online Admission Portal"
+                    >
+                      <span>Apply Online</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  ) : (
+                    <span className="text-slate-400 tabular-nums">Est. {uni.established_year}</span>
+                  )}
+
+                  <button
+                    onClick={() => onNavigate('university-detail', uni.slug)}
+                    className="font-medium text-emerald-800 hover:underline flex items-center gap-0.5"
+                  >
+                    <span>Profile</span>
+                    <ChevronRight className="h-3 w-3" />
+                  </button>
                 </div>
               </div>
             </div>

@@ -24,6 +24,7 @@ import { StudentDashboardView } from './views/StudentDashboardView';
 import { AdsterraSmartlink } from './components/ads/AdsterraSmartlink';
 import { AdsterraResponsiveBanner } from './components/ads/AdsterraResponsiveBanner';
 import { dataStore } from './lib/dataStore';
+import { aiSyncEngine } from './lib/aiSyncEngine';
 import { updatePageSeo } from './lib/seo';
 
 export default function App() {
@@ -32,13 +33,17 @@ export default function App() {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [, setTick] = useState(0);
 
-  // Subscribe to reactive store changes (saves, reminders, admin actions)
+  // Subscribe to reactive store changes and autonomous background AI sync
   useEffect(() => {
-    const unsubscribe = dataStore.subscribe(() => {
+    const unsubData = dataStore.subscribe(() => {
+      setTick((t) => t + 1);
+    });
+    const unsubAi = aiSyncEngine.subscribe(() => {
       setTick((t) => t + 1);
     });
     return () => {
-      unsubscribe();
+      unsubData();
+      unsubAi();
     };
   }, []);
 

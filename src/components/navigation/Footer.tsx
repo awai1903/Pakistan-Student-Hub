@@ -117,12 +117,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
                   Student Saved Items
                 </button>
               </li>
-              <li>
-                <div className="flex items-center gap-1.5 text-emerald-800 font-semibold">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>Autonomous AI Sync (24/7)</span>
-                </div>
-              </li>
               <li className="text-slate-400">
                 Contact: <span className="text-slate-600">{siteSettings.contact_email}</span>
               </li>

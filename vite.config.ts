@@ -10,8 +10,8 @@ dotenv.config();
 function aiApiPlugin(): Plugin {
   const AI_CASCADE_MODELS = [
     { name: 'Gemini 3.8 Flash (Primary AI)', modelId: 'gemini-3.8-flash' },
-    { name: 'Gemini 2.5 Flash (Secondary Failover)', modelId: 'gemini-2.5-flash' },
-    { name: 'Gemini 2.0 Flash (Tertiary Failover)', modelId: 'gemini-2.0-flash' }
+    { name: 'Gemini 3.1 Flash Lite (Secondary Failover)', modelId: 'gemini-3.1-flash-lite' },
+    { name: 'Gemini Flash Latest (Tertiary Failover)', modelId: 'gemini-flash-latest' }
   ];
 
   let isAutonomousSyncEnabled = true;
@@ -81,8 +81,8 @@ function aiApiPlugin(): Plugin {
             active_ai_engine: currentActiveEngine,
             available_engines: [
               { name: 'Gemini 3.8 Flash', role: 'Primary AI', status: 'Healthy' },
-              { name: 'Gemini 2.5 Flash', role: 'Secondary Failover', status: 'Standby' },
-              { name: 'Gemini 2.0 Flash', role: 'Tertiary Failover', status: 'Standby' },
+              { name: 'Gemini 3.1 Flash Lite', role: 'Secondary Failover', status: 'Standby' },
+              { name: 'Gemini Flash Latest', role: 'Tertiary Failover', status: 'Standby' },
               { name: 'Autonomous Gazette Engine', role: 'Emergency Grounding', status: 'Always Ready' }
             ],
             logs: syncLogs.slice(0, 30)

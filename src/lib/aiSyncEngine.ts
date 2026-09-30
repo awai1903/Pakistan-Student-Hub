@@ -41,7 +41,7 @@ class AISyncEngine {
       id: 'init-1',
       timestamp: new Date().toLocaleTimeString(),
       level: 'info',
-      message: 'Multi-AI High Availability Pipeline initialized (Primary: Gemini 3.8 Flash | Failover: Gemini 2.5/2.0)',
+      message: 'Multi-AI High Availability Pipeline initialized (Primary: Gemini 3.8 Flash | Failover: Gemini 3.1 Flash Lite / Gemini Flash Latest)',
       aiEngine: 'Multi-AI Cascade'
     },
     {
@@ -89,14 +89,14 @@ class AISyncEngine {
           status: this.activeAiEngine.includes('3.8') ? 'Active' : 'Healthy'
         },
         {
-          name: 'Gemini 2.5 Flash',
+          name: 'Gemini 3.1 Flash Lite',
           role: 'Secondary Failover',
-          status: this.activeAiEngine.includes('2.5') ? 'Active' : 'Standby'
+          status: this.activeAiEngine.includes('3.1') ? 'Active' : 'Standby'
         },
         {
-          name: 'Gemini 2.0 Flash',
+          name: 'Gemini Flash Latest',
           role: 'Tertiary Failover',
-          status: this.activeAiEngine.includes('2.0') ? 'Active' : 'Standby'
+          status: this.activeAiEngine.includes('Flash Latest') ? 'Active' : 'Standby'
         },
         {
           name: 'Autonomous Verification Engine',
@@ -121,9 +121,9 @@ class AISyncEngine {
     const previousEngine = this.activeAiEngine;
 
     if (this.activeAiEngine.includes('3.8')) {
-      this.activeAiEngine = 'Gemini 2.5 Flash (Secondary Failover Engine)';
-    } else if (this.activeAiEngine.includes('2.5')) {
-      this.activeAiEngine = 'Gemini 2.0 Flash (Tertiary Failover Engine)';
+      this.activeAiEngine = 'Gemini 3.1 Flash Lite (Secondary Failover Engine)';
+    } else if (this.activeAiEngine.includes('3.1')) {
+      this.activeAiEngine = 'Gemini Flash Latest (Tertiary Failover Engine)';
     } else {
       this.activeAiEngine = 'Autonomous Gazette Verification Intelligence';
     }

@@ -9,6 +9,8 @@ import {
   Navigation,
   Compass,
   SlidersHorizontal,
+  Building2,
+  Sparkles,
   X
 } from 'lucide-react';
 import { dataStore } from '../lib/dataStore';
@@ -186,6 +188,14 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
     clearLocationFilter();
   };
 
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    const inputEl = document.getElementById('search-by-university');
+    if (inputEl) {
+      inputEl.focus();
+    }
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       <Breadcrumbs items={[{ label: 'Universities' }]} />
@@ -304,21 +314,110 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
         )}
       </div>
 
-      {/* Main Search and Advanced Filters */}
-      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
-          <div className="md:col-span-4 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by name, short name (NUST, LUMS, FAST), program (CS, MBBS)..."
-              className="w-full rounded-lg border border-slate-300 py-2 pl-9 pr-3 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-600 focus:outline-hidden focus:ring-1 focus:ring-emerald-600"
-            />
+      {/* FOCUSED 'SEARCH BY UNIVERSITY' FEATURE */}
+      <div className="rounded-xl border-2 border-emerald-600/30 bg-white p-5 shadow-xs transition-all focus-within:border-emerald-600 focus-within:shadow-md space-y-3.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-800 text-white shadow-xs">
+              <Building2 className="h-5 w-5" />
+            </div>
+            <div>
+              <label htmlFor="search-by-university" className="block text-base font-bold text-slate-900">
+                Search by University
+              </label>
+              <span className="text-xs text-slate-500">
+                Type dynamically to search across 240+ HEC recognized universities by name, acronym, or city
+              </span>
+            </div>
           </div>
 
-          <div className="md:col-span-3">
+          {searchQuery.trim() && (
+            <div className="flex items-center gap-2 self-start sm:self-auto">
+              <span className="inline-flex items-center rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-900 border border-emerald-300">
+                {filteredUniversities.length} {filteredUniversities.length === 1 ? 'university' : 'universities'} found
+              </span>
+              <button
+                onClick={handleClearSearch}
+                className="inline-flex items-center gap-1 rounded-md bg-slate-100 hover:bg-slate-200 px-2.5 py-1 text-xs font-medium text-slate-700 transition-colors"
+                title="Clear search and reset filters"
+              >
+                <X className="h-3.5 w-3.5" />
+                <span>Clear</span>
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Dynamic Typing Input with Inside Clear Icon Button */}
+        <div className="relative">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-5 w-5 text-emerald-800 pointer-events-none" />
+          <input
+            id="search-by-university"
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Type university name (e.g., NUST, FAST-NUCES, LUMS, UET, Aga Khan, Punjab University, GIKI)..."
+            className="w-full rounded-lg border border-slate-300 bg-slate-50/50 py-3 pl-11 pr-12 text-sm font-medium text-slate-900 placeholder-slate-400 hover:bg-white focus:bg-white focus:border-emerald-700 focus:outline-hidden focus:ring-2 focus:ring-emerald-700/20 transition-all shadow-inner"
+            autoComplete="off"
+          />
+          {searchQuery.trim() !== '' && (
+            <button
+              type="button"
+              onClick={handleClearSearch}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 flex items-center justify-center h-7 w-7 rounded-full bg-slate-200/90 hover:bg-rose-100 text-slate-600 hover:text-rose-700 transition-colors shadow-2xs group"
+              title="Clear university search"
+              aria-label="Clear university search input"
+            >
+              <X className="h-4 w-4 transition-transform group-hover:scale-110" />
+            </button>
+          )}
+        </div>
+
+        {/* Popular University Quick-Filter Shortcuts */}
+        <div className="flex flex-wrap items-center gap-1.5 pt-1">
+          <span className="text-xs font-semibold text-slate-500 mr-1 flex items-center gap-1">
+            <Sparkles className="h-3 w-3 text-amber-500" />
+            Popular Shortcuts:
+          </span>
+          {[
+            { label: 'NUST', value: 'NUST' },
+            { label: 'FAST-NUCES', value: 'FAST' },
+            { label: 'LUMS', value: 'LUMS' },
+            { label: 'UET Lahore', value: 'UET' },
+            { label: 'COMSATS', value: 'COMSATS' },
+            { label: 'Aga Khan', value: 'Aga Khan' },
+            { label: 'Quaid-i-Azam', value: 'Quaid-i-Azam' },
+            { label: 'GIKI', value: 'GIKI' },
+            { label: 'PIEAS', value: 'PIEAS' },
+            { label: 'Punjab University', value: 'Punjab' },
+            { label: 'Dow University', value: 'Dow' },
+            { label: 'King Edward', value: 'King Edward' }
+          ].map((uni) => {
+            const isActive = searchQuery.toLowerCase() === uni.value.toLowerCase();
+            return (
+              <button
+                key={uni.label}
+                onClick={() => setSearchQuery(isActive ? '' : uni.value)}
+                className={`rounded-md px-2.5 py-1 text-xs font-medium transition-all ${
+                  isActive
+                    ? 'bg-emerald-800 text-white font-semibold shadow-xs ring-2 ring-emerald-800/30'
+                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 border border-slate-200/80'
+                }`}
+              >
+                {uni.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Advanced Filters: Province, City, Sector, Program */}
+      <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+          <div className="md:col-span-4">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              Province / Territory
+            </label>
             <select
               value={selectedProvince}
               onChange={(e) => setSelectedProvince(e.target.value)}
@@ -331,7 +430,10 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
             </select>
           </div>
 
-          <div className="md:col-span-2">
+          <div className="md:col-span-3">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              City
+            </label>
             <select
               value={selectedCity}
               onChange={(e) => setSelectedCity(e.target.value)}
@@ -344,7 +446,10 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
             </select>
           </div>
 
-          <div className="md:col-span-2">
+          <div className="md:col-span-3">
+            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+              Sector
+            </label>
             <select
               value={selectedSector}
               onChange={(e) => setSelectedSector(e.target.value)}
@@ -356,12 +461,12 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
             </select>
           </div>
 
-          <div className="md:col-span-1 flex items-center">
+          <div className="md:col-span-2 flex items-end">
             <button
               onClick={handleResetFilters}
               className="w-full rounded-lg border border-slate-300 py-2 px-3 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
             >
-              Reset
+              Reset Filters
             </button>
           </div>
         </div>
@@ -391,14 +496,26 @@ export const UniversitiesView: React.FC<UniversitiesViewProps> = ({
           <GraduationCap className="mx-auto h-12 w-12 text-slate-400" />
           <h3 className="mt-2 text-base font-bold text-slate-900">No Universities Found</h3>
           <p className="mt-1 text-sm text-slate-500 max-w-sm mx-auto">
-            No higher education institutions match your active filters or radius criteria.
+            {searchQuery.trim()
+              ? `No universities match "${searchQuery}". Check the spelling or try searching by city or abbreviation.`
+              : 'No higher education institutions match your active filters or radius criteria.'}
           </p>
-          <button
-            onClick={handleResetFilters}
-            className="mt-4 inline-flex items-center rounded-lg bg-emerald-800 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-900"
-          >
-            Clear All Filters
-          </button>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+            {searchQuery.trim() && (
+              <button
+                onClick={handleClearSearch}
+                className="inline-flex items-center rounded-lg bg-emerald-800 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-900 transition-colors"
+              >
+                Clear University Search
+              </button>
+            )}
+            <button
+              onClick={handleResetFilters}
+              className="inline-flex items-center rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+            >
+              Reset All Filters
+            </button>
+          </div>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

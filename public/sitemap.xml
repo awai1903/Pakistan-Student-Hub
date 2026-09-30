@@ -83,7 +83,14 @@
   <!-- Educational News & Updates -->
   <url>
     <loc>https://pakistanstudenthub.netlify.app/?tab=news</loc>
-    <lastmod>2026-09-29</lastmod>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Student Reviews & Feature Requests -->
+  <url>
+    <loc>https://pakistanstudenthub.netlify.app/?tab=reviews</loc>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>

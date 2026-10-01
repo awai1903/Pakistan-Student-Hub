@@ -44,12 +44,14 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'admissions', label: 'Admissions', path: '/admissions' },
     { id: 'scholarships', label: 'Scholarships', path: '/scholarships' },
     { id: 'entry-tests', label: 'Entry Tests', path: '/entry-tests' },
-    { id: 'calculator', label: 'Merit Calculator', path: '/calculator' },
+    { id: 'calculator', label: 'Merit Calculator', path: '/meritcalculator' },
     { id: 'compare', label: 'Compare', path: '/compare' },
     { id: 'deadlines', label: 'Deadlines', path: '/deadlines' }
   ];
 
   const secondaryNavItems = [
+    { id: 'hostels', label: 'Student Hostels', path: '/hostels' },
+    { id: 'quiz', label: 'Entry Test Quiz', path: '/quiz' },
     { id: 'resources', label: 'Past Papers', path: '/resources' },
     { id: 'jobs', label: 'Jobs', path: '/jobs' },
     { id: 'internships', label: 'Internships', path: '/internships' },

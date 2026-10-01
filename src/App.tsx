@@ -17,6 +17,8 @@ import { EntryTestsView } from './views/EntryTestsView';
 import { CompareView } from './views/CompareView';
 import { DeadlinesView } from './views/DeadlinesView';
 import { MeritCalculatorView } from './views/MeritCalculatorView';
+import { HostelsView } from './views/HostelsView';
+import { QuizView } from './views/QuizView';
 import { JobsAndInternshipsView } from './views/JobsAndInternshipsView';
 import { CoursesView } from './views/CoursesView';
 import { ResourcesView } from './views/ResourcesView';
@@ -105,7 +107,19 @@ export default function App() {
       updatePageSeo({
         title: 'Pakistani University Aggregate & Merit Calculator - Pakistan Student Hub',
         description: 'Calculate your exact merit percentage for MDCAT MBBS, NUST NET, UET ECAT, FAST-NUCES, and COMSATS with verified formulas.',
-        canonicalPath: '/calculator'
+        canonicalPath: '/meritcalculator'
+      });
+    } else if (route === 'hostels') {
+      updatePageSeo({
+        title: 'Verified Student Hostels & Accommodation in Pakistan - Pakistan Student Hub',
+        description: 'Find verified boys and girls student hostels near NUST, FAST, COMSATS, UET, and NED with rent, mess, and generator details.',
+        canonicalPath: '/hostels'
+      });
+    } else if (route === 'quiz') {
+      updatePageSeo({
+        title: 'Entry Test Past Papers & MCQs Practice Quiz - Pakistan Student Hub',
+        description: 'Solve past paper MCQs for MDCAT, ECAT, and NUST NET with instant conceptual explanations and negative marking evaluation.',
+        canonicalPath: '/quiz'
       });
     } else if (route === 'jobs') {
       updatePageSeo({
@@ -272,6 +286,14 @@ export default function App() {
 
         {routeState.route === 'calculator' && (
           <MeritCalculatorView onNavigate={(tab, slug) => handleNavigate(tab, slug)} />
+        )}
+
+        {routeState.route === 'hostels' && (
+          <HostelsView onNavigateTab={(tab, slug) => handleNavigate(tab, slug)} />
+        )}
+
+        {routeState.route === 'quiz' && (
+          <QuizView onNavigateTab={(tab, slug) => handleNavigate(tab, slug)} />
         )}
 
         {routeState.route === 'jobs' && (

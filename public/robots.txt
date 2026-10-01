@@ -10,6 +10,11 @@ Allow: /scholarships
 Allow: /scholarships/*
 Allow: /entry-tests
 Allow: /entry-tests/*
+Allow: /meritcalculator
+Allow: /calculator
+Allow: /hostels
+Allow: /quiz
+Allow: /practice-quiz
 Allow: /compare
 Allow: /compare/*
 Allow: /deadlines

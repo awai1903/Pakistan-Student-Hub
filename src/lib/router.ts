@@ -14,6 +14,8 @@ export type RouteType =
   | 'compare'
   | 'deadlines'
   | 'calculator'
+  | 'hostels'
+  | 'quiz'
   | 'jobs'
   | 'internships'
   | 'courses'
@@ -86,6 +88,10 @@ class Router {
           'admissions',
           'deadlines',
           'calculator',
+          'meritcalculator',
+          'hostels',
+          'quiz',
+          'practice-quiz',
           'jobs',
           'internships',
           'courses',
@@ -168,7 +174,9 @@ class Router {
 
     if (first === 'admissions') return { route: 'admissions', pathname };
     if (first === 'deadlines') return { route: 'deadlines', pathname };
-    if (first === 'calculator') return { route: 'calculator', pathname };
+    if (first === 'calculator' || first === 'meritcalculator' || first === 'merit-calculator') return { route: 'calculator', pathname };
+    if (first === 'hostels' || first === 'hostel') return { route: 'hostels', pathname };
+    if (first === 'quiz' || first === 'practice-quiz' || first === 'mcqs') return { route: 'quiz', pathname };
     if (first === 'jobs') return { route: 'jobs', pathname };
     if (first === 'internships') return { route: 'internships', pathname };
     if (first === 'courses') return { route: 'courses', pathname };

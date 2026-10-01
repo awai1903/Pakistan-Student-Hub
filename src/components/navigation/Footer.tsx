@@ -93,6 +93,24 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
                   Merit Calculator (MDCAT/NET/ECAT)
                 </a>
               </li>
+              <li>
+                <a
+                  href="/hostels"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('hostels'); }}
+                  className="hover:text-emerald-800 transition-colors"
+                >
+                  Student Hostels & Accommodation
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/quiz"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('quiz'); }}
+                  className="hover:text-emerald-800 transition-colors font-medium text-emerald-700"
+                >
+                  Entry Test MCQs Quiz (MDCAT/ECAT)
+                </a>
+              </li>
             </ul>
           </div>
 

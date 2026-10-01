@@ -103,7 +103,7 @@ export default function App() {
         description: 'Chronological deadline calendar for closing admissions, scholarships, and registration forms.',
         canonicalPath: '/deadlines'
       });
-    } else if (route === 'calculator') {
+    } else if (route === 'calculator' || route === 'meritcalculator') {
       updatePageSeo({
         title: 'Pakistani University Aggregate & Merit Calculator - Pakistan Student Hub',
         description: 'Calculate your exact merit percentage for MDCAT MBBS, NUST NET, UET ECAT, FAST-NUCES, and COMSATS with verified formulas.',
@@ -284,7 +284,7 @@ export default function App() {
           <DeadlinesView onNavigateHome={() => handleNavigate('home')} />
         )}
 
-        {routeState.route === 'calculator' && (
+        {(routeState.route === 'calculator' || routeState.route === 'meritcalculator') && (
           <MeritCalculatorView onNavigate={(tab, slug) => handleNavigate(tab, slug)} />
         )}
 

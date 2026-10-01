@@ -118,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Zone 2: Navigation links */}
           <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
             {primaryNavItems.map((item) => {
-              const isActive = activeTab === item.id;
+              const isActive = activeTab === item.id || (item.id === 'calculator' && activeTab === 'meritcalculator');
               return (
                 <a
                   key={item.id}
@@ -289,7 +289,7 @@ export const Header: React.FC<HeaderProps> = ({
                     handleNavClick(item.id);
                   }}
                   className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-left text-xs ${
-                    activeTab === item.id
+                    activeTab === item.id || (item.id === 'calculator' && activeTab === 'meritcalculator')
                       ? 'bg-emerald-50 text-emerald-900 font-semibold'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}

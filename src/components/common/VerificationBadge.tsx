@@ -44,14 +44,23 @@ export const VerificationBadge: React.FC<VerificationBadgeProps> = ({
         )}
       </span>
 
-      {lastVerifiedAt && (
-        <>
-          <span className="text-slate-300" aria-hidden="true">·</span>
-          <span className="text-slate-500 tabular-nums">
-            Verified {new Date(lastVerifiedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
-          </span>
-        </>
-      )}
+      {lastVerifiedAt && (() => {
+        let displayDate = lastVerifiedAt;
+        try {
+          const d = new Date(lastVerifiedAt);
+          if (!isNaN(d.getTime())) {
+            displayDate = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+          }
+        } catch (e) {}
+        return (
+          <>
+            <span className="text-slate-300" aria-hidden="true">·</span>
+            <span className="text-slate-500 tabular-nums">
+              Verified {displayDate}
+            </span>
+          </>
+        );
+      })()}
 
       {sourceName && (
         <>

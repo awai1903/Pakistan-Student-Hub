@@ -14,6 +14,7 @@ export type RouteType =
   | 'compare'
   | 'deadlines'
   | 'calculator'
+  | 'meritcalculator'
   | 'hostels'
   | 'quiz'
   | 'jobs'
@@ -174,7 +175,7 @@ class Router {
 
     if (first === 'admissions') return { route: 'admissions', pathname };
     if (first === 'deadlines') return { route: 'deadlines', pathname };
-    if (first === 'calculator' || first === 'meritcalculator' || first === 'merit-calculator') return { route: 'calculator', pathname };
+    if (first === 'calculator' || first === 'meritcalculator' || first === 'merit-calculator') return { route: 'meritcalculator', pathname };
     if (first === 'hostels' || first === 'hostel') return { route: 'hostels', pathname };
     if (first === 'quiz' || first === 'practice-quiz' || first === 'mcqs') return { route: 'quiz', pathname };
     if (first === 'jobs') return { route: 'jobs', pathname };
@@ -242,6 +243,12 @@ class Router {
       targetPath = '/jobs';
     } else if (tab === 'internships') {
       targetPath = '/internships';
+    } else if (tab === 'calculator' || tab === 'meritcalculator') {
+      targetPath = '/meritcalculator';
+    } else if (tab === 'hostels') {
+      targetPath = '/hostels';
+    } else if (tab === 'quiz' || tab === 'practice-quiz') {
+      targetPath = '/quiz';
     } else {
       targetPath = `/${tab}`;
     }

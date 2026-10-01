@@ -16,6 +16,7 @@ import { ScholarshipDetailView } from './views/ScholarshipDetailView';
 import { EntryTestsView } from './views/EntryTestsView';
 import { CompareView } from './views/CompareView';
 import { DeadlinesView } from './views/DeadlinesView';
+import { MeritCalculatorView } from './views/MeritCalculatorView';
 import { JobsAndInternshipsView } from './views/JobsAndInternshipsView';
 import { CoursesView } from './views/CoursesView';
 import { ResourcesView } from './views/ResourcesView';
@@ -99,6 +100,12 @@ export default function App() {
         title: 'University Admissions & Scholarship Deadlines - Pakistan Student Hub',
         description: 'Chronological deadline calendar for closing admissions, scholarships, and registration forms.',
         canonicalPath: '/deadlines'
+      });
+    } else if (route === 'calculator') {
+      updatePageSeo({
+        title: 'Pakistani University Aggregate & Merit Calculator - Pakistan Student Hub',
+        description: 'Calculate your exact merit percentage for MDCAT MBBS, NUST NET, UET ECAT, FAST-NUCES, and COMSATS with verified formulas.',
+        canonicalPath: '/calculator'
       });
     } else if (route === 'jobs') {
       updatePageSeo({
@@ -261,6 +268,10 @@ export default function App() {
 
         {routeState.route === 'deadlines' && (
           <DeadlinesView onNavigateHome={() => handleNavigate('home')} />
+        )}
+
+        {routeState.route === 'calculator' && (
+          <MeritCalculatorView onNavigate={(tab, slug) => handleNavigate(tab, slug)} />
         )}
 
         {routeState.route === 'jobs' && (

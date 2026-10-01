@@ -84,6 +84,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateTab }) => {
                   Compare Universities
                 </a>
               </li>
+              <li>
+                <a
+                  href="/calculator"
+                  onClick={(e) => { e.preventDefault(); onNavigateTab('calculator'); }}
+                  className="hover:text-emerald-800 transition-colors font-medium text-emerald-700"
+                >
+                  Merit Calculator (MDCAT/NET/ECAT)
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -44,6 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'admissions', label: 'Admissions', path: '/admissions' },
     { id: 'scholarships', label: 'Scholarships', path: '/scholarships' },
     { id: 'entry-tests', label: 'Entry Tests', path: '/entry-tests' },
+    { id: 'calculator', label: 'Merit Calculator', path: '/calculator' },
     { id: 'compare', label: 'Compare', path: '/compare' },
     { id: 'deadlines', label: 'Deadlines', path: '/deadlines' }
   ];

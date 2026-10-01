@@ -8,7 +8,10 @@ import {
   Clock,
   Navigation,
   Compass,
-  X
+  X,
+  Calculator,
+  Award,
+  Sparkles
 } from 'lucide-react';
 import { dataStore } from '../lib/dataStore';
 import { VerificationBadge } from '../components/common/VerificationBadge';
@@ -301,6 +304,43 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, openSearchModal 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <AdSlot placement="header" />
       </div>
+
+      {/* FEATURE SPOTLIGHT: PAKISTANI AGGREGATE & MERIT CALCULATOR */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border-2 border-emerald-700/20 bg-linear-to-r from-emerald-900 via-emerald-950 to-slate-900 text-white p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+            <Calculator className="h-44 w-44 text-white" />
+          </div>
+          <div className="relative z-10 max-w-2xl space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold uppercase tracking-wider border border-emerald-500/30">
+              <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+              New Student Tool: 2026 Admissions
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              Pakistani University Aggregate & Merit Calculator
+            </h2>
+            <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed">
+              Calculate your exact merit percentage for <strong>MDCAT (MBBS/BDS)</strong>, <strong>NUST NET</strong>, <strong>UET ECAT</strong>, <strong>FAST-NUCES</strong>, and <strong>COMSATS</strong>. Instantly see which universities and programs match your score against previous closing merits.
+            </p>
+            <div className="pt-2 flex flex-wrap gap-2 text-[11px] text-emerald-200">
+              <span className="bg-emerald-900/80 px-2.5 py-1 rounded-md border border-emerald-700/50">PMDC 10-40-50</span>
+              <span className="bg-emerald-900/80 px-2.5 py-1 rounded-md border border-emerald-700/50">NUST 10-15-75</span>
+              <span className="bg-emerald-900/80 px-2.5 py-1 rounded-md border border-emerald-700/50">UET 25-45-30</span>
+              <span className="bg-emerald-900/80 px-2.5 py-1 rounded-md border border-emerald-700/50">FAST 50-50</span>
+            </div>
+          </div>
+          <div className="relative z-10 shrink-0">
+            <button
+              onClick={() => onNavigate('calculator')}
+              className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-xs sm:text-sm font-bold text-emerald-950 hover:bg-emerald-50 transition-all shadow-md hover:scale-102 cursor-pointer"
+            >
+              <Calculator className="h-4 w-4 text-emerald-800" />
+              <span>Calculate My Aggregate</span>
+              <ArrowRight className="h-4 w-4 text-emerald-800" />
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* 3. LATEST ADMISSIONS */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
